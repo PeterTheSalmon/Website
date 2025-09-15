@@ -94,6 +94,23 @@ main {
     margin-left: 0.25rem;
 }
 
+.resume {
+    margin-top: 3rem;
+}
+
+.resume-link {
+    color: #000000;
+    text-decoration: none;
+    font-size: 1.1rem;
+    display: inline-block;
+    transition: opacity 0.2s ease;
+}
+
+.resume-link:hover,
+.resume-link:focus {
+    opacity: 0.6;
+}
+
 @media (max-width: 600px) {
     body {
         padding: 1.5rem;
@@ -112,6 +129,10 @@ main {
     }
 
     .project-link {
+        font-size: 1rem;
+    }
+
+    .resume-link {
         font-size: 1rem;
     }
 }
