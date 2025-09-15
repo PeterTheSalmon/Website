@@ -10,63 +10,30 @@
 </head>
 
 <body>
-    <div class="stars">
-        <div class="star" style="top: 15%; left: 10%"></div>
-        <div class="star" style="top: 25%; left: 85%"></div>
-        <div class="star" style="top: 45%; left: 35%"></div>
-        <div class="star" style="top: 75%; left: 15%"></div>
-        <div class="star" style="top: 85%; left: 45%"></div>
-        <div class="star" style="top: 35%; left: 75%"></div>
-        <div class="star" style="top: 65%; left: 90%"></div>
-        <div class="star" style="top: 10%; left: 50%"></div>
-        <div class="star" style="top: 90%; left: 25%"></div>
-        <div class="star" style="top: 20%; left: 30%"></div>
-        <div class="star" style="top: 55%; left: 60%"></div>
-        <div class="star" style="top: 80%; left: 70%"></div>
-        <div class="star small" style="top: 40%; left: 20%"></div>
-        <div class="star small" style="top: 70%; left: 40%"></div>
-        <div class="star small" style="top: 30%; left: 95%"></div>
-        <div class="star small" style="top: 15%; left: 65%"></div>
-        <div class="star small" style="top: 85%; left: 85%"></div>
-        <div class="star small" style="top: 50%; left: 5%"></div>
-    </div>
     <main>
-        <div class="header">
-            <div class="name">
-                <div class="name-line">Peter Salmon</div>
+        <section class="header">
+            <h1 class="name">Peter Salmon</h1>
+            <div class="contact-info">
+                <a href="mailto:pdfsalmon@gmail.com" class="contact-link">pdfsalmon@gmail.com</a>
+                <span class="separator">•</span>
+                <a href="tel:778-676-8643" class="contact-link">778-676-8643</a>
             </div>
-            <div class="nav-links">
-                <a href="#" class="nav-link" id="contact-link">Contact</a>
-                <div class="nav-link">•</div>
-                <a href="https://github.com/PeterTheSalmon" target="_blank" class="nav-link">GitHub</a>
-            </div>
-        </div>
-        <div class="projects-section">
-            <div class="section-label">My Latest Project</div>
-            <div class="card-container">
-                <a href="https://aceguitar.app" class="card">
-                    <div class="card-content">
-                        <div class="card-title">AceGuitar</div>
-                        <div class="card-description">A Better Guitar App</div>
-                        <span class="arrow">→</span>
-                    </div>
+        </section>
+        
+        <section class="projects">
+            <h2 class="section-title">My Projects</h2>
+            <div class="project-list">
+                <a href="https://capitalreasoning.com" target="_blank" class="project-link">
+                    Capital Reasoning Systems
+                    <span class="domain">(capitalreasoning.com)</span>
+                </a>
+                <a href="https://aceguitar.app" target="_blank" class="project-link">
+                    AceGuitar
+                    <span class="domain">(aceguitar.app)</span>
                 </a>
             </div>
-        </div>
+        </section>
     </main>
-    <div id="contact-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <div class="modal-inner">
-                <svg class="email-icon" viewBox="0 0 24 24" width="32" height="32">
-                    <path fill="currentColor"
-                        d="M20,4H4C2.9,4,2,4.9,2,6v12c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V6C22,4.9,21.1,4,20,4z M20,8l-8,5L4,8V6l8,5l8-5V8z" />
-                </svg>
-                <p>Send me an email! <a href="mailto:peter@petersalmon.dev">peter@petersalmon.dev</a></p>
-            </div>
-        </div>
-    </div>
 </body>
-<script src="script.js"></script>
 
 </html>
