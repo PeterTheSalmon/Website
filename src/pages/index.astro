@@ -1,34 +1,322 @@
 ---
+import aceguitarLogo from "../assets/aceguitar-logo.png";
+import crsLogo from "../assets/crs-logo.png";
+import headshot from "../assets/headshot.jpeg";
+import arrowRight from "../assets/icons/arrow-right.svg";
+import arrowUpRight from "../assets/icons/arrow-up-right.svg";
+import closeIcon from "../assets/icons/close.svg";
 import Base from "../layouts/Base.astro";
 ---
+
 <Base title="Peter Salmon">
-  <section class="mb-12">
-    <h1 class="font-serif text-5xl leading-tight mb-3 sm:text-3xl">Peter Salmon</h1>
-    <div class="flex items-center gap-3 flex-wrap text-lg sm:text-base">
-      <a href="mailto:pdfsalmon@gmail.com" class="hover:opacity-60 transition-opacity">pdfsalmon@gmail.com</a>
-      <span class="opacity-30">•</span>
-      <a href="tel:778-676-8643" class="hover:opacity-60 transition-opacity">778-676-8643</a>
-    </div>
-  </section>
+  <div
+    x-data="{
+      portfolioOpen: false,
+      portfolioTrigger: null,
+      openPortfolio(event) {
+        this.portfolioTrigger = event.currentTarget;
+        this.portfolioOpen = true;
+        this.$nextTick(() => this.$refs.portfolioClose?.focus());
+      },
+      closePortfolio() {
+        this.portfolioOpen = false;
+        this.$nextTick(() => this.portfolioTrigger?.focus());
+      }
+    }"
+    x-on:keydown.escape.prevent.stop="portfolioOpen && closePortfolio()"
+    class="relative"
+  >
+    <div class="grid gap-12 lg:grid-cols-2 lg:gap-x-24 lg:gap-y-20">
+      <section
+        class="flex justify-center lg:justify-end lg:col-start-2 lg:row-start-1"
+      >
+        <img
+          src={headshot.src}
+          width={headshot.width}
+          height={headshot.height}
+          alt="Portrait of Peter Salmon"
+          class="h-44 w-44 sm:h-40 sm:w-40 lg:h-48 lg:w-48 rounded-full object-cover shadow-[0_14px_40px_rgba(15,23,42,0.14)]"
+          loading="eager"
+          decoding="async"
+        />
+      </section>
 
-  <section class="mt-12">
-    <h2 class="font-serif text-[1.75rem] mb-5 sm:text-xl">My Projects</h2>
-    <div class="flex flex-col gap-3">
-      <a href="https://capitalreasoning.com" target="_blank" rel="noopener" class="hover:opacity-60 transition-opacity text-lg sm:text-base inline-block">
-        Capital Reasoning Systems
-        <span class="opacity-50 text-sm ml-1">(capitalreasoning.com)</span>
-      </a>
-      <a href="https://aceguitar.app" target="_blank" rel="noopener" class="hover:opacity-60 transition-opacity text-lg sm:text-base inline-block">
-        AceGuitar
-        <span class="opacity-50 text-sm ml-1">(aceguitar.app)</span>
-      </a>
-    </div>
-  </section>
+      <section class="lg:col-start-1 lg:row-start-1">
+        <h1
+          class="font-serif text-5xl font-bold leading-tight text-neutral-900 sm:text-4xl"
+        >
+          Peter Salmon
+        </h1>
+        <div class="mt-4 space-y-1 text-lg text-neutral-700">
+          <a
+            href="mailto:pdfsalmon@gmail.com"
+            class="block transition-opacity duration-150 hover:opacity-70"
+          >
+            pdfsalmon@gmail.com
+          </a>
+          <a
+            href="tel:+17786768643"
+            class="block transition-opacity duration-150 hover:opacity-70"
+          >
+            (778) 676-8643
+          </a>
+          <a
+            href="/peter-salmon-resume.pdf"
+            target="_blank"
+            rel="noopener"
+            class="group inline-flex items-center gap-1.5 font-medium text-neutral-800 transition-all duration-150 hover:opacity-75"
+          >
+            Resume
+            <img
+              src={arrowUpRight.src}
+              alt=""
+              class="h-3.5 w-3.5 translate-y-px transition-transform duration-200 ease-out group-hover:translate-x-0.5"
+            />
+          </a>
+        </div>
+      </section>
 
-  <section class="mt-12">
-    <a href="/peter-salmon-resume.pdf" target="_blank" rel="noopener" class="hover:opacity-60 transition-opacity text-lg sm:text-base inline-block">
-      Resume <span aria-hidden="true">↗</span>
-    </a>
-  </section>
+      <section class="lg:col-start-1 lg:row-start-2">
+        <h2 class="font-serif text-3xl font-bold text-neutral-900 sm:text-2xl">
+          Projects
+        </h2>
+        <div class="mt-6 space-y-6">
+          <a
+            href="https://capitalreasoning.com"
+            target="_blank"
+            rel="noopener"
+            class="group flex items-center gap-4"
+          >
+            <img
+              src={crsLogo.src}
+              width={crsLogo.width}
+              height={crsLogo.height}
+              alt="Capital Reasoning Systems logo"
+              class="h-12 w-12 flex-shrink-0 rounded-md object-contain"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="flex-1">
+              <p class="text-lg font-semibold text-neutral-900">
+                Capital Reasoning Systems
+              </p>
+              <p class="mt-1 text-sm text-neutral-600">
+                On-Premises AI for your Business
+              </p>
+            </div>
+            <img
+              src={arrowUpRight.src}
+              alt=""
+              class="h-4 w-4 flex-shrink-0 translate-x-0 transition-transform duration-200 ease-out group-hover:translate-x-0.5"
+              aria-hidden="true"
+            />
+          </a>
+
+          <a
+            href="https://aceguitar.app"
+            target="_blank"
+            rel="noopener"
+            class="group flex items-center gap-4"
+          >
+            <img
+              src={aceguitarLogo.src}
+              width={aceguitarLogo.width}
+              height={aceguitarLogo.height}
+              alt="AceGuitar logo"
+              class="h-12 w-12 flex-shrink-0 rounded-md object-contain"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="flex-1">
+              <p class="text-lg font-semibold text-neutral-900">AceGuitar</p>
+              <p class="mt-1 text-sm text-neutral-600">A Better Guitar App</p>
+            </div>
+            <img
+              src={arrowUpRight.src}
+              alt=""
+              class="h-4 w-4 flex-shrink-0 translate-x-0 transition-transform duration-200 ease-out group-hover:translate-x-0.5"
+              aria-hidden="true"
+            />
+          </a>
+        </div>
+      </section>
+
+      <section class="lg:col-start-2 lg:row-start-2">
+        <h2 class="font-serif text-3xl font-bold text-neutral-900 sm:text-2xl">
+          Services
+        </h2>
+        <div class="mt-6 space-y-8">
+          <article>
+            <h3 class="text-lg font-semibold text-neutral-900">
+              Web Design &amp; Development
+            </h3>
+            <p class="mt-2 text-sm leading-relaxed text-neutral-600">
+              Custom websites — from WordPress blogs to tailor-made web apps.
+              <a
+                href="#portfolio"
+                class="group inline-flex items-center gap-1.5 font-medium text-neutral-800 not-italic transition-all duration-150 hover:opacity-75"
+                @click.prevent="openPortfolio($event)"
+              >
+                View Portfolio
+                <img
+                  src={arrowUpRight.src}
+                  alt=""
+                  class="h-3.5 w-3.5 translate-y-px transition-transform duration-200 ease-out group-hover:translate-x-0.5"
+                  aria-hidden="true"
+                />
+              </a>
+            </p>
+          </article>
+
+          <article>
+            <h3 class="text-lg font-semibold text-neutral-900">
+              Software &amp; AI Systems
+            </h3>
+            <p class="mt-2 text-sm leading-relaxed text-neutral-600">
+              Practical systems that integrate AI and automate workflows, built
+              for your needs.
+            </p>
+          </article>
+
+          <article>
+            <h3 class="text-lg font-semibold text-neutral-900">
+              Campaign Coordination
+            </h3>
+            <p class="mt-2 text-sm leading-relaxed text-neutral-600">
+              Volunteer management, canvassing operations, and on-the-ground
+              campaign strategy.
+            </p>
+          </article>
+        </div>
+
+        <div
+          class="mt-12 border-t border-[#edeae5] pt-8 text-center text-base italic text-neutral-700 lg:text-left"
+        >
+          Interested in working together?
+          <a
+            href="mailto:pdfsalmon@gmail.com"
+            class="group inline-flex items-center gap-1.5 font-medium text-neutral-800 not-italic transition-all duration-150 hover:opacity-75"
+          >
+            Reach out
+            <img
+              src={arrowRight.src}
+              alt=""
+              class="h-4 w-4 translate-x-0 transition-transform duration-200 ease-out group-hover:translate-x-0.5"
+              aria-hidden="true"
+            />
+          </a>
+        </div>
+      </section>
+    </div>
+
+    <div
+      x-show="portfolioOpen"
+      x-cloak
+      class="fixed inset-0 z-50 flex items-center justify-center px-4 py-8"
+      x-transition:enter="transition ease-out duration-200"
+      x-transition:enter-start="opacity-0"
+      x-transition:enter-end="opacity-100"
+      x-transition:leave="transition ease-in duration-150"
+      x-transition:leave-start="opacity-100"
+      x-transition:leave-end="opacity-0"
+    >
+      <div
+        class="absolute inset-0 bg-black/10"
+        role="presentation"
+        @click="closePortfolio()"
+      >
+      </div>
+      <div
+        class="absolute inset-0 pointer-events-none bg-gradient-to-b from-white/10 to-transparent"
+      >
+      </div>
+
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="portfolio-modal-title"
+        class="relative z-10 w-full max-w-lg rounded-2xl bg-[#fffdfb] p-8 shadow-[0_18px_45px_rgba(0,0,0,0.08)] focus:outline-none"
+        x-transition:enter="transition ease-out duration-200"
+        x-transition:enter-start="opacity-0 transform scale-95"
+        x-transition:enter-end="opacity-100 transform scale-100"
+        x-transition:leave="transition ease-in duration-150"
+        x-transition:leave-start="opacity-100 transform scale-100"
+        x-transition:leave-end="opacity-0 transform scale-95"
+      >
+        <button
+          type="button"
+          class="absolute right-4 top-4 inline-flex h-9 w-9 items-center justify-center rounded-full transition-opacity duration-150 hover:opacity-75 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#fffdfb]"
+          @click="closePortfolio()"
+          x-ref="portfolioClose"
+        >
+          <img
+            src={closeIcon.src}
+            alt="Close portfolio modal"
+            class="h-4 w-4"
+          />
+        </button>
+
+        <h2
+          id="portfolio-modal-title"
+          class="font-serif text-2xl font-bold text-neutral-900"
+        >
+          Portfolio
+        </h2>
+
+        <div class="mt-6 space-y-8">
+          <div>
+            <h3
+              class="text-sm font-semibold uppercase tracking-wide text-neutral-500"
+            >
+              Sites I have done completely
+            </h3>
+            <div class="mt-3 grid gap-x-6 gap-y-2 sm:grid-cols-2">
+              <a
+                href="https://aceguitar.app"
+                target="_blank"
+                rel="noopener"
+                class="text-neutral-800 transition-colors duration-150 hover:underline"
+              >
+                aceguitar.app
+              </a>
+              <a
+                href="https://capitalreasoning.com"
+                target="_blank"
+                rel="noopener"
+                class="text-neutral-800 transition-colors duration-150 hover:underline"
+              >
+                capitalreasoning.com
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <h3
+              class="text-sm font-semibold uppercase tracking-wide text-neutral-500"
+            >
+              Sites I have worked on / done upgrades to
+            </h3>
+            <div class="mt-3 grid gap-x-6 gap-y-2 sm:grid-cols-2">
+              <a
+                href="https://kelownaboatcharters.ca"
+                target="_blank"
+                rel="noopener"
+                class="text-neutral-800 transition-colors duration-150 hover:underline"
+              >
+                kelownaboatcharters.ca
+              </a>
+              <a
+                href="https://bcgreencaucus.ca"
+                target="_blank"
+                rel="noopener"
+                class="text-neutral-800 transition-colors duration-150 hover:underline"
+              >
+                bcgreencaucus.ca
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </Base>
-

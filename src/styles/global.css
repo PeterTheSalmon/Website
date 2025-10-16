@@ -42,3 +42,41 @@ html,
 body {
   height: 100%;
 }
+
+body {
+  background-color: #fffdfb;
+}
+
+[x-cloak] {
+  display: none !important;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.5s ease-out both;
+}
+
+@keyframes modal-fade-scale {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modal-fade-scale {
+  animation: modal-fade-scale 0.25s ease both;
+}
