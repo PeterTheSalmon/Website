@@ -27,10 +27,10 @@ import Base from "../layouts/Base.astro";
     class="relative flex flex-col flex-1"
   >
     <div
-      class="grid gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:items-center md:gap-x-10 lg:grid-cols-[0.35fr_0.65fr] lg:gap-x-16 lg:gap-y-16 px-4 sm:px-0"
+      class="grid gap-10 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] sm:items-center sm:gap-x-8 lg:grid-cols-[0.35fr_0.65fr] lg:items-start lg:gap-x-16 lg:gap-y-16 px-4 sm:px-0"
     >
       <section
-        class="flex items-center justify-center md:col-start-2 md:row-start-1 md:justify-end lg:col-start-2 lg:row-start-1 lg:justify-end"
+        class="flex items-center justify-center sm:col-start-2 sm:row-start-1 sm:justify-self-end lg:col-start-2 lg:row-start-1 lg:justify-self-end"
       >
         <img
           src={headshot.src}
@@ -44,15 +44,15 @@ import Base from "../layouts/Base.astro";
       </section>
 
       <section
-        class="text-center md:col-start-1 md:row-start-1 md:flex md:h-full md:flex-col md:justify-center md:text-left lg:text-left"
+        class="text-center sm:col-start-1 sm:row-start-1 sm:text-left md:flex md:h-full md:flex-col md:justify-center md:text-left lg:text-left"
       >
         <h1
-          class="font-serif text-4xl font-bold leading-tight text-neutral-900 sm:text-5xl lg:text-6xl"
+          class="font-serif text-4xl font-bold leading-tight text-neutral-900 sm:text-[2.85rem] lg:text-6xl sm:whitespace-nowrap"
         >
           Peter Salmon
         </h1>
         <div
-          class="mt-5 space-y-1 text-lg text-neutral-700 mx-auto md:mx-0 md:text-left"
+          class="mt-5 space-y-1 text-lg text-neutral-700 mx-auto sm:mx-0 sm:text-left md:mx-0 md:text-left"
         >
           <a
             href="mailto:pdfsalmon@gmail.com"
@@ -83,19 +83,19 @@ import Base from "../layouts/Base.astro";
       </section>
 
       <section
-        class="md:col-span-2 lg:col-span-1 lg:col-start-1 lg:row-start-2"
+        class="sm:col-span-2 lg:col-span-1 lg:col-start-1 lg:row-start-2"
       >
         <h2
-          class="font-serif text-3xl font-bold text-neutral-900 sm:text-[2.25rem] lg:text-[2.75rem]"
+          class="font-serif text-[2rem] font-bold text-neutral-900 sm:text-[2.25rem] lg:text-[2.75rem]"
         >
           Projects
         </h2>
-        <div class="mt-6 space-y-4">
+        <div class="mt-6 flex flex-col gap-2 md:gap-2.5">
           <a
             href="https://capitalreasoning.com"
             target="_blank"
             rel="noopener"
-            class="group flex items-center gap-4 rounded-2xl px-3 py-3 transition-colors duration-150 hover:bg-neutral-100/60"
+            class="group flex items-center gap-3 rounded-2xl py-2 transition-colors duration-150 hover:bg-neutral-100/60"
           >
             <img
               src={crsLogo.src}
@@ -117,7 +117,7 @@ import Base from "../layouts/Base.astro";
             <img
               src={arrowUpRight.src}
               alt=""
-              class="h-4 w-4 flex-shrink-0 translate-x-0 transition-transform duration-200 ease-out group-hover:translate-x-0.5"
+              class="h-4 w-4 flex-shrink-0"
               aria-hidden="true"
             />
           </a>
@@ -126,7 +126,7 @@ import Base from "../layouts/Base.astro";
             href="https://aceguitar.app"
             target="_blank"
             rel="noopener"
-            class="group flex items-center gap-4 rounded-2xl px-3 py-3 transition-colors duration-150 hover:bg-neutral-100/60"
+            class="group flex items-center gap-3 rounded-2xl py-2 transition-colors duration-150 hover:bg-neutral-100/60"
           >
             <img
               src={aceguitarLogo.src}
@@ -144,7 +144,7 @@ import Base from "../layouts/Base.astro";
             <img
               src={arrowUpRight.src}
               alt=""
-              class="h-4 w-4 flex-shrink-0 translate-x-0 transition-transform duration-200 ease-out group-hover:translate-x-0.5"
+              class="h-4 w-4 flex-shrink-0"
               aria-hidden="true"
             />
           </a>
@@ -152,17 +152,17 @@ import Base from "../layouts/Base.astro";
       </section>
 
       <section
-        class="md:col-span-2 lg:col-span-1 lg:col-start-2 lg:row-start-2"
+        class="sm:col-span-2 lg:col-span-1 lg:col-start-2 lg:row-start-2"
       >
         <h2
-          class="font-serif text-3xl font-bold text-neutral-900 sm:text-[2.25rem] lg:text-[2.75rem]"
+          class="font-serif text-[2rem] font-bold text-neutral-900 sm:text-[2.25rem] lg:text-[2.75rem]"
         >
           Services
         </h2>
         <div
-          class="mt-5 space-y-7 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-x-12 lg:gap-y-10 lg:space-y-0"
+          class="mt-5 space-y-7 xl:grid xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] xl:gap-x-12 xl:gap-y-10 xl:space-y-0"
         >
-          <article class="lg:col-start-1 lg:row-start-1">
+          <article class="xl:col-start-1 xl:row-start-1">
             <h3 class="text-lg font-semibold text-neutral-900">
               Web Design &amp; Development
             </h3>
@@ -184,7 +184,7 @@ import Base from "../layouts/Base.astro";
             </p>
           </article>
 
-          <article class="lg:col-start-2 lg:row-start-1">
+          <article class="xl:col-start-2 xl:row-start-1">
             <h3 class="text-lg font-semibold text-neutral-900">
               Software &amp; AI Systems
             </h3>
@@ -194,7 +194,7 @@ import Base from "../layouts/Base.astro";
             </p>
           </article>
 
-          <article class="lg:col-start-1 lg:row-start-2">
+          <article class="xl:col-start-1 xl:row-start-2">
             <h3 class="text-lg font-semibold text-neutral-900">
               Campaign Coordination
             </h3>
@@ -341,7 +341,9 @@ import Base from "../layouts/Base.astro";
     </div>
   </div>
 
-  <footer class="mt-auto pt-8 text-xs text-neutral-500 text-left">
+  <footer
+    class="mt-auto pt-8 pb-4 text-xs text-neutral-500 text-left px-4 sm:px-0"
+  >
     © 2025 Peter Salmon
   </footer>
 </Base>
