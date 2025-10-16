@@ -27,7 +27,7 @@ import Base from "../layouts/Base.astro";
     class="relative flex flex-col flex-1"
   >
     <div
-      class="grid gap-10 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] sm:items-center sm:gap-x-8 lg:grid-cols-[0.35fr_0.65fr] lg:items-start lg:gap-x-16 lg:gap-y-16 px-4 sm:px-0"
+      class="grid gap-10 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] sm:items-center sm:gap-x-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] xl:grid-cols-[0.35fr_0.65fr] lg:items-start lg:gap-x-16 lg:gap-y-16 px-4 sm:px-0"
     >
       <section
         class="flex items-center justify-center sm:col-start-2 sm:row-start-1 sm:justify-self-end lg:col-start-2 lg:row-start-1 lg:justify-self-end"
@@ -90,12 +90,12 @@ import Base from "../layouts/Base.astro";
         >
           Projects
         </h2>
-        <div class="mt-6 flex flex-col gap-2 md:gap-2.5">
+        <div class="mt-4 flex flex-col gap-2 md:gap-2.5">
           <a
             href="https://capitalreasoning.com"
             target="_blank"
             rel="noopener"
-            class="group flex items-center gap-3 rounded-2xl py-2 transition-colors duration-150 hover:bg-neutral-100/60"
+            class="group flex items-center gap-3 rounded-2xl py-1.5 pr-2 transition-colors duration-150 hover:bg-neutral-100/60"
           >
             <img
               src={crsLogo.src}
@@ -117,7 +117,7 @@ import Base from "../layouts/Base.astro";
             <img
               src={arrowUpRight.src}
               alt=""
-              class="h-4 w-4 flex-shrink-0"
+              class="h-4 w-4 flex-shrink-0 mr-2"
               aria-hidden="true"
             />
           </a>
@@ -126,7 +126,7 @@ import Base from "../layouts/Base.astro";
             href="https://aceguitar.app"
             target="_blank"
             rel="noopener"
-            class="group flex items-center gap-3 rounded-2xl py-2 transition-colors duration-150 hover:bg-neutral-100/60"
+            class="group flex items-center gap-3 rounded-2xl py-1.5 pr-2 transition-colors duration-150 hover:bg-neutral-100/60"
           >
             <img
               src={aceguitarLogo.src}
@@ -144,7 +144,7 @@ import Base from "../layouts/Base.astro";
             <img
               src={arrowUpRight.src}
               alt=""
-              class="h-4 w-4 flex-shrink-0"
+              class="h-4 w-4 flex-shrink-0 mr-2"
               aria-hidden="true"
             />
           </a>
@@ -207,21 +207,20 @@ import Base from "../layouts/Base.astro";
 
         <div class="mt-10 text-left text-base italic text-neutral-700">
           <span class="mb-6 block h-px w-16 bg-[#edeae5]"></span>
-          <p>
-            Interested in working together?
-            <a
-              href="mailto:pdfsalmon@gmail.com"
-              class="group inline-flex items-center gap-1.5 font-medium text-neutral-800 not-italic transition-all duration-150 hover:opacity-75"
+          <a
+            href="mailto:pdfsalmon@gmail.com"
+            class="group inline-flex items-center gap-1.5 font-medium text-neutral-800 transition-all duration-150 hover:opacity-75"
+          >
+            Interested in working together? <span class="not-italic"
+              >Reach out</span
             >
-              Reach out
-              <img
-                src={arrowRight.src}
-                alt=""
-                class="h-4 w-4 translate-x-0 transition-transform duration-200 ease-out group-hover:translate-x-0.5"
-                aria-hidden="true"
-              />
-            </a>
-          </p>
+            <img
+              src={arrowRight.src}
+              alt=""
+              class="h-4 w-4 translate-x-0 transition-transform duration-200 ease-out group-hover:translate-x-0.5"
+              aria-hidden="true"
+            />
+          </a>
         </div>
       </section>
     </div>
