@@ -26,7 +26,7 @@ import Base from "../layouts/Base.astro";
     x-on:keydown.escape.prevent.stop="portfolioOpen && closePortfolio()"
     class="relative flex flex-col flex-1"
   >
-    <div class="animate-fade-up">
+    <div class="animate-fade-up md:pt-6 lg:pt-10">
       <div
         class="grid gap-10 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] sm:items-center sm:gap-x-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] xl:grid-cols-[0.35fr_0.65fr] lg:items-start lg:gap-x-16 lg:gap-y-16 px-4 sm:px-0"
       >
@@ -38,7 +38,7 @@ import Base from "../layouts/Base.astro";
             width={headshot.width}
             height={headshot.height}
             alt="Portrait of Peter Salmon"
-            class="h-60 w-60 sm:h-64 sm:w-64 lg:h-56 lg:w-56 rounded-full object-cover shadow-[0_10px_30px_rgba(15,23,42,0.08)] -scale-x-100 transform"
+            class="h-60 w-60 sm:h-64 sm:w-64 lg:h-64 lg:w-64 xl:h-[17rem] xl:w-[17rem] rounded-full object-cover shadow-[0_8px_22px_rgba(15,23,42,0.14)] -scale-x-100 transform"
             loading="eager"
             decoding="async"
           />
