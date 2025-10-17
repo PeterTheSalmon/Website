@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import aceguitarLogo from "../assets/aceguitar-logo.png";
 import crsLogo from "../assets/crs-logo.png";
 import headshot from "../assets/headshot.jpeg";
@@ -6,9 +7,42 @@ import arrowRight from "../assets/icons/arrow-right.svg";
 import arrowUpRight from "../assets/icons/arrow-up-right.svg";
 import closeIcon from "../assets/icons/close.svg";
 import Base from "../layouts/Base.astro";
+
+const pageTitle = "Peter Salmon | Product & Engineering Leader";
+const pageDescription =
+  "Product and engineering leader building effective digital experiences, AI systems, and campaign infrastructure for organizations that need momentum.";
+const origin = Astro.site ?? Astro.url?.origin ?? undefined;
+const canonicalUrl =
+  Astro.url?.href ?? (origin ? new URL("/", origin).toString() : undefined);
+const headshotOgImage = origin
+  ? new URL(headshot.src, origin).toString()
+  : undefined;
+const structuredData: Record<string, unknown> = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Peter Salmon",
+  description: pageDescription,
+  jobTitle: "Product & Engineering Leader",
+  url: canonicalUrl,
+  image: headshotOgImage,
+  email: "mailto:pdfsalmon@gmail.com",
+  telephone: "+1-778-676-8643",
+  sameAs: ["https://capitalreasoning.com", "https://aceguitar.app"],
+  worksFor: {
+    "@type": "Organization",
+    name: "Capital Reasoning Systems",
+    url: "https://capitalreasoning.com",
+  },
+};
 ---
 
-<Base title="Peter Salmon">
+<Base
+  title={pageTitle}
+  description={pageDescription}
+  canonicalUrl={canonicalUrl}
+  ogImage={headshotOgImage}
+  jsonLd={structuredData}
+>
   <div
     x-data="{
       portfolioOpen: false,
@@ -33,14 +67,17 @@ import Base from "../layouts/Base.astro";
         <section
           class="flex items-center justify-center sm:col-start-2 sm:row-start-1 sm:justify-self-end lg:col-start-2 lg:row-start-1 lg:justify-self-end"
         >
-          <img
-            src={headshot.src}
-            width={headshot.width}
-            height={headshot.height}
+          <Image
+            src={headshot}
             alt="Portrait of Peter Salmon"
             class="h-60 w-60 sm:h-64 sm:w-64 lg:h-64 lg:w-64 xl:h-[17rem] xl:w-[17rem] rounded-full object-cover shadow-[0_8px_22px_rgba(15,23,42,0.14)] -scale-x-100 transform"
             loading="eager"
             decoding="async"
+            fetchpriority="high"
+            widths={[272, 384, 544, 640]}
+            sizes="(min-width: 1280px) 272px, (min-width: 1024px) 256px, (min-width: 640px) 256px, 240px"
+            quality={95}
+            format="jpeg"
           />
         </section>
 
@@ -70,7 +107,7 @@ import Base from "../layouts/Base.astro";
             <a
               href="/peter-salmon-resume.pdf"
               target="_blank"
-              rel="noopener"
+              rel="noopener noreferrer"
               class="group inline-flex items-center gap-1.5 font-medium text-neutral-800 transition-all duration-150 hover:opacity-75"
             >
               Resume
@@ -84,6 +121,7 @@ import Base from "../layouts/Base.astro";
         </section>
 
         <section
+          id="projects"
           class="sm:col-span-2 lg:col-span-1 lg:col-start-1 lg:row-start-2"
         >
           <h2
@@ -95,7 +133,7 @@ import Base from "../layouts/Base.astro";
             <a
               href="https://capitalreasoning.com"
               target="_blank"
-              rel="noopener"
+              rel="noopener noreferrer"
               class="group flex items-center gap-3 rounded-2xl py-1.5 pr-2 transition-colors duration-150 hover:bg-neutral-100/60"
             >
               <img
@@ -126,7 +164,7 @@ import Base from "../layouts/Base.astro";
             <a
               href="https://aceguitar.app"
               target="_blank"
-              rel="noopener"
+              rel="noopener noreferrer"
               class="group flex items-center gap-3 rounded-2xl py-1.5 pr-2 transition-colors duration-150 hover:bg-neutral-100/60"
             >
               <img
@@ -155,6 +193,7 @@ import Base from "../layouts/Base.astro";
         </section>
 
         <section
+          id="services"
           class="sm:col-span-2 lg:col-span-1 lg:col-start-2 lg:row-start-2"
         >
           <h2
@@ -208,7 +247,7 @@ import Base from "../layouts/Base.astro";
             </article>
           </div>
 
-          <div class="mt-10 text-left text-base text-neutral-700">
+          <div id="contact" class="mt-10 text-left text-base text-neutral-700">
             <a
               href="mailto:pdfsalmon@gmail.com"
               class="group inline-flex items-center gap-2 rounded-full border border-neutral-800/40 px-4 py-2 font-medium text-neutral-800 transition-all duration-200 ease-out hover:border-neutral-900 hover:bg-neutral-900/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-800/40 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
@@ -253,6 +292,7 @@ import Base from "../layouts/Base.astro";
         class="flex h-full w-full items-center justify-center px-4 py-6 sm:py-8 lg:py-10"
       >
         <div
+          id="portfolio"
           role="dialog"
           aria-modal="true"
           aria-labelledby="portfolio-modal-title"
@@ -296,7 +336,7 @@ import Base from "../layouts/Base.astro";
                 <a
                   href="https://aceguitar.app"
                   target="_blank"
-                  rel="noopener"
+                  rel="noopener noreferrer"
                   class="inline-flex items-center gap-2 text-neutral-800 transition-colors duration-150 hover:underline"
                 >
                   <img
@@ -311,7 +351,7 @@ import Base from "../layouts/Base.astro";
                 <a
                   href="https://capitalreasoning.com"
                   target="_blank"
-                  rel="noopener"
+                  rel="noopener noreferrer"
                   class="inline-flex items-center gap-2 text-neutral-800 transition-colors duration-150 hover:underline"
                 >
                   <img
@@ -337,7 +377,7 @@ import Base from "../layouts/Base.astro";
                 <a
                   href="https://kelownaboatcharters.ca"
                   target="_blank"
-                  rel="noopener"
+                  rel="noopener noreferrer"
                   class="inline-flex items-center gap-2 text-neutral-800 transition-colors duration-150 hover:underline"
                 >
                   <img
@@ -352,7 +392,7 @@ import Base from "../layouts/Base.astro";
                 <a
                   href="https://bcgreencaucus.ca"
                   target="_blank"
-                  rel="noopener"
+                  rel="noopener noreferrer"
                   class="inline-flex items-center gap-2 text-neutral-800 transition-colors duration-150 hover:underline"
                 >
                   <img
