@@ -15,9 +15,13 @@ import "../styles/global.css";
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" as="image" href="https://www.google.com/s2/favicons?domain=aceguitar.app&sz=64" />
+    <link rel="preload" as="image" href="https://www.google.com/s2/favicons?domain=capitalreasoning.com&sz=64" />
+    <link rel="preload" as="image" href="https://www.google.com/s2/favicons?domain=kelownaboatcharters.ca&sz=64" />
+    <link rel="preload" as="image" href="https://www.google.com/s2/favicons?domain=bcgreencaucus.ca&sz=64" />
   </head>
   <body class="min-h-screen font-sans bg-[#fffdfb] text-black antialiased flex">
-    <main class="w-full max-w-7xl mx-auto flex-1 flex flex-col px-4 sm:px-6 md:px-8 lg:px-9 xl:px-10 py-12 sm:py-10 lg:py-12 animate-fade-up">
+    <main class="w-full max-w-7xl mx-auto flex-1 flex flex-col px-4 sm:px-6 md:px-8 lg:px-9 xl:px-10 py-12 sm:py-10 lg:py-12">
       <slot />
     </main>
   </body>
