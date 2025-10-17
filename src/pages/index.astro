@@ -163,7 +163,7 @@ import Base from "../layouts/Base.astro";
             Services
           </h2>
           <div
-            class="mt-5 space-y-7 xl:grid xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] xl:gap-x-12 xl:gap-y-10 xl:space-y-0"
+            class="mt-5 space-y-6 xl:grid xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] xl:gap-x-10 xl:gap-y-6 xl:space-y-0"
           >
             <article class="xl:col-start-1 xl:row-start-1">
               <h3 class="text-lg font-semibold text-neutral-900">
@@ -208,19 +208,17 @@ import Base from "../layouts/Base.astro";
             </article>
           </div>
 
-          <div class="mt-10 text-left text-base italic text-neutral-700">
-            <span class="mb-6 block h-px w-16 bg-[#edeae5]"></span>
+          <div class="mt-10 text-left text-base text-neutral-700">
             <a
               href="mailto:pdfsalmon@gmail.com"
-              class="group inline-flex items-center gap-1.5 font-medium text-neutral-800 transition-all duration-150 hover:opacity-75"
+              class="group inline-flex items-center gap-2 rounded-full border border-neutral-800/40 px-4 py-2 font-medium text-neutral-800 transition-all duration-200 ease-out hover:border-neutral-900 hover:bg-neutral-900/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-800/40 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
             >
-              Interested in working together? <span class="not-italic"
-                >Reach out</span
-              >
+              <span>Interested in working together?</span>
+              <span class="font-semibold">Reach out</span>
               <img
                 src={arrowRight.src}
                 alt=""
-                class="h-4 w-4 translate-x-0 transition-transform duration-200 ease-out group-hover:translate-x-0.5"
+                class="h-4 w-4 transition-transform duration-200 ease-out"
                 aria-hidden="true"
               />
             </a>
