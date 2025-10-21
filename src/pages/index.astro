@@ -11,16 +11,16 @@ import Base from "../layouts/Base.astro";
 const pageTitle = "Peter Salmon";
 const pageDescription =
   "Multidisciplinary technologist building effective digital experiences, AI systems, and campaign infrastructure for organizations that need momentum.";
-const origin = Astro.site ?? Astro.url?.origin ?? undefined;
-const canonicalUrl =
-  Astro.url?.href ?? (origin ? new URL("/", origin).toString() : undefined);
+const siteFromConfig = Astro.site ? String(Astro.site) : undefined;
+const origin = siteFromConfig ?? Astro.url.origin;
+const canonicalUrl = new URL(Astro.url.pathname || "/", origin).toString();
 const headshotOgImage = origin
   ? new URL(headshot.src, origin).toString()
   : undefined;
-const structuredData: Record<string, unknown> = {
+const structuredData = {
   "@context": "https://schema.org",
   "@type": "Person",
-  name: "Peter Salmon",
+  name: pageTitle,
   description: pageDescription,
   jobTitle: "Technologist & Campaigner",
   url: canonicalUrl,
@@ -33,7 +33,7 @@ const structuredData: Record<string, unknown> = {
     name: "Capital Reasoning Systems",
     url: "https://capitalreasoning.com",
   },
-};
+} as const;
 ---
 
 <Base

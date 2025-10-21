@@ -51,7 +51,7 @@ const twitterCardType = ogImage ? 'summary_large_image' : 'summary';
     {ogImage && <meta name="twitter:image:alt" content={title} />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     {jsonLd && (
-      <script type="application/ld+json">
+      <script id="person-jsonld" type="application/ld+json">
         {JSON.stringify(jsonLd, null, 0)}
       </script>
     )}
