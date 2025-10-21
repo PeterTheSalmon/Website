@@ -10,13 +10,13 @@ export interface Props {
 }
 
 const {
-  title = 'Peter Salmon',
-  description = 'Product and engineering leadership with a focus on high-impact digital experiences.',
+  title = "Peter Salmon",
+  description = "Product and engineering leadership with a focus on high-impact digital experiences.",
   canonicalUrl,
   ogImage,
   jsonLd,
 } = Astro.props as Props;
-const siteName = 'Peter Salmon';
+const siteName = "Peter Salmon";
 const resolvedCanonical =
   canonicalUrl ??
   (() => {
@@ -26,8 +26,9 @@ const resolvedCanonical =
       return undefined;
     }
   })();
-const twitterCardType = ogImage ? 'summary_large_image' : 'summary';
+const twitterCardType = ogImage ? "summary_large_image" : "summary";
 ---
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -41,7 +42,11 @@ const twitterCardType = ogImage ? 'summary_large_image' : 'summary';
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:site_name" content={siteName} />
-    {resolvedCanonical && <meta property="og:url" content={resolvedCanonical} />}
+    {
+      resolvedCanonical && (
+        <meta property="og:url" content={resolvedCanonical} />
+      )
+    }
     {ogImage && <meta property="og:image" content={ogImage} />}
     {ogImage && <meta property="og:image:alt" content={title} />}
     <meta name="twitter:card" content={twitterCardType} />
@@ -50,14 +55,22 @@ const twitterCardType = ogImage ? 'summary_large_image' : 'summary';
     {ogImage && <meta name="twitter:image" content={ogImage} />}
     {ogImage && <meta name="twitter:image:alt" content={title} />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    {jsonLd && (
-      <script id="person-jsonld" type="application/ld+json">
-        {JSON.stringify(jsonLd, null, 0)}
-      </script>
-    )}
+    {
+      jsonLd && (
+        <script
+          id="person-jsonld"
+          type="application/ld+json"
+          set:html={JSON.stringify(jsonLd, null, 2)
+            .replace(/</g, "\\u003c")
+            .replace(/-->/g, "--\\u003e")}
+        />
+      )
+    }
   </head>
   <body class="min-h-screen font-sans bg-[#fffdfb] text-black antialiased flex">
-    <main class="w-full max-w-7xl mx-auto flex-1 flex flex-col px-4 sm:px-6 md:px-8 lg:px-9 xl:px-10 py-12 sm:py-10 lg:py-12">
+    <main
+      class="w-full max-w-7xl mx-auto flex-1 flex flex-col px-4 sm:px-6 md:px-8 lg:px-9 xl:px-10 py-12 sm:py-10 lg:py-12"
+    >
       <slot />
     </main>
   </body>
