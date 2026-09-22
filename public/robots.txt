@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://petersalmon.dev/sitemap-index.xml

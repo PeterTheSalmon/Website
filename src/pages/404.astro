@@ -1,0 +1,22 @@
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base
+  title="Page not found — Peter Salmon"
+  description="The page you're looking for doesn't exist."
+>
+  <meta name="robots" content="noindex" slot="head" />
+  <div class="flex flex-1 flex-col items-center justify-center text-center px-4">
+    <h1 class="font-serif text-6xl text-neutral-900">404</h1>
+    <p class="mt-4 text-lg text-neutral-600">
+      The page you're looking for doesn't exist.
+    </p>
+    <a
+      href="/"
+      class="mt-8 inline-flex items-center gap-2 rounded-md border border-neutral-800/40 px-4 py-2 font-medium text-neutral-800 transition-all duration-200 hover:border-neutral-900 hover:bg-neutral-900/5"
+    >
+      Back to petersalmon.dev
+    </a>
+  </div>
+</Base>

@@ -6,6 +6,22 @@ import headshot from "../assets/headshot.jpeg";
 import arrowRight from "../assets/icons/arrow-right.svg";
 import arrowUpRight from "../assets/icons/arrow-up-right.svg";
 
+import shotAcis from "../assets/portfolio/acislabs.ca.png";
+import shotAceguitar from "../assets/portfolio/aceguitar.app.png";
+import shotCapitalReasoning from "../assets/portfolio/capitalreasoning.com.png";
+import shotChangemakers from "../assets/portfolio/changemakerslibrary.org.png";
+import shotKelowna from "../assets/portfolio/kelownaboatcharters.ca.png";
+import shotMunify from "../assets/portfolio/munify.ca.png";
+
+import favAcis from "../assets/favicons/acislabs.ca.png";
+import favAceguitar from "../assets/favicons/aceguitar.app.png";
+import favBcGreen from "../assets/favicons/bcgreencaucus.ca.png";
+import favChangemakers from "../assets/favicons/changemakerslibrary.org.svg";
+import favCommunity from "../assets/favicons/communityassemblynetwork.ca.png";
+import favKelowna from "../assets/favicons/kelownaboatcharters.ca.png";
+import favMunify from "../assets/favicons/munify.ca.svg";
+import favSurvival from "../assets/favicons/survivalresearch.ca.png";
+
 import Base from "../layouts/Base.astro";
 
 const pageTitle = "Peter Salmon";
@@ -14,7 +30,10 @@ const pageDescription =
 const siteFromConfig = Astro.site ? String(Astro.site) : undefined;
 const origin = siteFromConfig ?? Astro.url.origin;
 const canonicalUrl = new URL(Astro.url.pathname || "/", origin).toString();
-const headshotOgImage = origin
+const ogImage = origin
+  ? new URL("/og-image.png", origin).toString()
+  : undefined;
+const headshotUrl = origin
   ? new URL(headshot.src, origin).toString()
   : undefined;
 const structuredData = {
@@ -24,29 +43,148 @@ const structuredData = {
   description: pageDescription,
   jobTitle: "Technologist & Campaigner",
   url: canonicalUrl,
-  image: headshotOgImage,
+  image: headshotUrl,
   email: "mailto:peter@petersalmon.dev",
   telephone: "+1-778-676-8643",
-  sameAs: ["https://capitalreasoning.com", "https://aceguitar.app"],
+  sameAs: [
+    "https://capitalreasoning.com",
+    "https://aceguitar.app",
+    "https://www.linkedin.com/in/peterthesalmon/",
+  ],
   worksFor: {
     "@type": "Organization",
     name: "Capital Reasoning Systems",
     url: "https://capitalreasoning.com",
   },
 } as const;
+
+const projects = [
+  {
+    name: "Capital Reasoning",
+    tagline: "On-Premises AI for your Business",
+    href: "https://capitalreasoning.com",
+    logo: crsLogo,
+    logoAlt: "Capital Reasoning Systems logo",
+    ring: true,
+  },
+  {
+    name: "AceGuitar",
+    tagline: "Tuner, Metronome, Chords, and more",
+    href: "https://aceguitar.app",
+    logo: aceguitarLogo,
+    logoAlt: "AceGuitar logo",
+    ring: false,
+  },
+];
+
+const featuredSites = [
+  {
+    name: "Changemakers Library",
+    domain: "changemakerslibrary.org",
+    href: "https://changemakerslibrary.org",
+    screenshot: shotChangemakers,
+    favicon: favChangemakers,
+    description:
+      "A fully custom, video-based learning platform built for a class at the University of Victoria.",
+  },
+  {
+    name: "AceGuitar",
+    domain: "aceguitar.app",
+    href: "https://aceguitar.app",
+    screenshot: shotAceguitar,
+    favicon: favAceguitar,
+    description:
+      "Custom landing page for AceGuitar — a better guitar learning and practice app.",
+  },
+  {
+    name: "Munify",
+    domain: "munify.ca",
+    href: "https://munify.ca",
+    screenshot: shotMunify,
+    favicon: favMunify,
+    description:
+      "A civic briefing platform that turns Victoria council meetings into clear, sourced summaries.",
+  },
+  {
+    name: "Capital Reasoning",
+    domain: "capitalreasoning.com",
+    href: "https://capitalreasoning.com",
+    screenshot: shotCapitalReasoning,
+    favicon: crsLogo,
+    faviconRounded: true,
+    description:
+      "Marketing site for a B2B AI SaaS company, built with Astro.js.",
+  },
+  {
+    name: "ACIS Laboratories",
+    domain: "acislabs.ca",
+    href: "https://acislabs.ca/",
+    screenshot: shotAcis,
+    favicon: favAcis,
+    description:
+      "Research site for UVic’s Advanced Control and Intelligent Systems Laboratories.",
+  },
+  {
+    name: "Kelowna Boat Charters",
+    domain: "kelownaboatcharters.ca",
+    href: "https://kelownaboatcharters.ca",
+    screenshot: shotKelowna,
+    favicon: favKelowna,
+    tag: "(Collaborative)",
+    description:
+      "Refreshed the site with improved formatting, accessibility, and layout.",
+  },
+];
+
+const moreSites = [
+  {
+    name: "Community Assembly Network",
+    domain: "communityassembly<wbr />network.ca",
+    href: "https://communityassemblynetwork.ca",
+    favicon: favCommunity,
+    tag: "(Collaborative)",
+    description:
+      "WordPress site for a democratic advocacy group — built to share information and collect contacts.",
+  },
+  {
+    name: "Survival Research Institute of Canada",
+    domain: "survivalresearch.ca",
+    href: "https://survivalresearch.ca",
+    favicon: favSurvival,
+    tag: "(Collaborative)",
+    nameClass:
+      "min-w-0 whitespace-nowrap text-sm font-semibold leading-5 tracking-tight text-neutral-900 transition-colors duration-150 group-hover:text-neutral-700 md:text-[1.0625rem]",
+    description:
+      "Integrated a multi-thousand-entry database of authors and publications for public browsing.",
+  },
+  {
+    name: "BC Green Caucus",
+    domain: "bcgreencaucus.ca",
+    href: "https://bcgreencaucus.ca",
+    favicon: favBcGreen,
+    tag: "(Collaborative)",
+    description:
+      "Completed a full site upgrade, including social feed integration and modern design touches.",
+  },
+];
+
+const currentYear = new Date().getFullYear();
 ---
 
 <Base
   title={pageTitle}
   description={pageDescription}
   canonicalUrl={canonicalUrl}
-  ogImage={headshotOgImage}
+  ogImage={ogImage}
+  ogImageWidth={1200}
+  ogImageHeight={630}
+  ogImageAlt="Peter Salmon — Multidisciplinary technologist"
   jsonLd={structuredData}
 >
   <div class="relative flex flex-col flex-1">
     <div class="animate-fade-up md:pt-6 lg:pt-10">
       <div
-        class="grid gap-10 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] sm:items-center sm:gap-x-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] xl:grid-cols-[0.35fr_0.65fr] lg:items-start lg:gap-x-16 lg:gap-y-16 px-4 sm:px-0"
+        class="grid gap-10 sm:grid-cols-2 sm:items-center sm:gap-x-8 xl:grid-cols-[0.35fr_0.65fr] lg:items-start lg:gap-x-16 lg:gap-y-16 px-4 sm:px-0"
       >
         <section
           class="flex items-center justify-center sm:col-start-2 sm:row-start-1 sm:justify-self-end lg:col-start-2 lg:row-start-1 lg:justify-self-end"
@@ -60,8 +198,8 @@ const structuredData = {
             fetchpriority="high"
             widths={[272, 384, 544, 640]}
             sizes="(min-width: 1280px) 272px, (min-width: 1024px) 256px, (min-width: 640px) 256px, 240px"
-            quality={95}
-            format="jpeg"
+            formats={["avif", "jpeg"]}
+            quality={90}
           />
         </section>
 
@@ -73,18 +211,24 @@ const structuredData = {
           >
             Peter Salmon
           </h1>
+          <p
+            class="mt-3 text-base text-neutral-600 max-w-md mx-auto sm:mx-0 sm:max-w-none lg:max-w-md"
+          >
+            Multidisciplinary technologist building digital experiences, AI
+            systems, and campaign infrastructure.
+          </p>
           <div
             class="mt-5 space-y-1 text-lg text-neutral-700 mx-auto sm:mx-0 sm:text-left md:mx-0 md:text-left"
           >
             <a
               href="mailto:peter@petersalmon.dev"
-              class="block transition-opacity duration-150 hover:opacity-70"
+              class="block w-fit mx-auto sm:mx-0 transition-opacity duration-150 hover:opacity-70"
             >
               peter@petersalmon.dev
             </a>
             <a
               href="tel:+17786768643"
-              class="block transition-opacity duration-150 hover:opacity-70"
+              class="block w-fit mx-auto sm:mx-0 transition-opacity duration-150 hover:opacity-70"
             >
               (778) 676-8643
             </a>
@@ -138,65 +282,44 @@ const structuredData = {
             Projects
           </h2>
           <div class="mt-4 flex flex-col gap-2 md:gap-2.5">
-            <a
-              href="https://capitalreasoning.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="group flex items-center gap-3 rounded-2xl py-1.5 pr-2 transition-colors duration-150 hover:bg-neutral-100/60"
-            >
-              <img
-                src={crsLogo.src}
-                width={crsLogo.width}
-                height={crsLogo.height}
-                alt="Capital Reasoning Systems logo"
-                class="h-12 w-12 flex-shrink-0 rounded-xl object-contain ring-1 ring-[rgba(15,23,42,0.18)]"
-                loading="lazy"
-                decoding="async"
-              />
-              <div class="flex-1">
-                <p class="text-lg font-semibold text-neutral-900">
-                  Capital Reasoning
-                </p>
-                <p class="mt-1 text-sm text-neutral-600">
-                  On-Premises AI for your Business
-                </p>
-              </div>
-              <img
-                src={arrowUpRight.src}
-                alt=""
-                class="h-4 w-4 flex-shrink-0 mr-2"
-                aria-hidden="true"
-              />
-            </a>
-
-            <a
-              href="https://aceguitar.app"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="group flex items-center gap-3 rounded-2xl py-1.5 pr-2 transition-colors duration-150 hover:bg-neutral-100/60"
-            >
-              <img
-                src={aceguitarLogo.src}
-                width={aceguitarLogo.width}
-                height={aceguitarLogo.height}
-                alt="AceGuitar logo"
-                class="h-12 w-12 flex-shrink-0 rounded-xl object-contain"
-                loading="lazy"
-                decoding="async"
-              />
-              <div class="flex-1">
-                <p class="text-lg font-semibold text-neutral-900">AceGuitar</p>
-                <p class="mt-1 text-sm text-neutral-600">
-                  Tuner, Metronome, Chords, and more
-                </p>
-              </div>
-              <img
-                src={arrowUpRight.src}
-                alt=""
-                class="h-4 w-4 flex-shrink-0 mr-2"
-                aria-hidden="true"
-              />
-            </a>
+            {
+              projects.map((project) => (
+                <a
+                  href={project.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="group flex items-center gap-3 rounded-2xl py-1.5 pr-2 transition-colors duration-150 hover:bg-neutral-100/60"
+                >
+                  <Image
+                    src={project.logo}
+                    alt={project.logoAlt}
+                    class:list={[
+                      "h-12 w-12 flex-shrink-0 rounded-xl object-contain",
+                      project.ring && "ring-1 ring-[rgba(15,23,42,0.18)]",
+                    ]}
+                    widths={[48, 96, 144]}
+                    sizes="48px"
+                    format="webp"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div class="flex-1">
+                    <p class="text-lg font-semibold text-neutral-900">
+                      {project.name}
+                    </p>
+                    <p class="mt-1 text-sm text-neutral-600">
+                      {project.tagline}
+                    </p>
+                  </div>
+                  <img
+                    src={arrowUpRight.src}
+                    alt=""
+                    class="h-4 w-4 flex-shrink-0 mr-2"
+                    aria-hidden="true"
+                  />
+                </a>
+              ))
+            }
           </div>
         </section>
 
@@ -210,7 +333,7 @@ const structuredData = {
             Services
           </h2>
           <div
-            class="mt-5 space-y-6 xl:grid xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] xl:gap-x-10 xl:gap-y-6 xl:space-y-0"
+            class="mt-5 space-y-6 xl:grid xl:grid-cols-2 xl:gap-x-10 xl:gap-y-6 xl:space-y-0"
           >
             <article class="xl:col-start-1 xl:row-start-1">
               <h3 class="text-lg font-semibold text-neutral-900">
@@ -265,448 +388,111 @@ const structuredData = {
       </p>
 
       <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        <!-- changemakerslibrary.org -->
-        <a
-          href="https://changemakerslibrary.org"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="group flex flex-col rounded-xl border border-neutral-400/60 bg-white transition-all duration-200 hover:border-neutral-400/90 hover:-translate-y-0.5 overflow-hidden"
-        >
-          <div
-            class="relative aspect-[16/10] overflow-hidden bg-neutral-100 border-b border-neutral-100"
-          >
-            <iframe
-              src="https://changemakerslibrary.org"
-              title="changemakerslibrary.org preview"
-              class="absolute inset-0 h-[200%] w-[200%] origin-top-left scale-50 pointer-events-none"
-              loading="lazy"
-              sandbox="allow-scripts allow-same-origin"
-              tabindex="-1"
-              aria-hidden="true"></iframe>
-          </div>
-          <div class="p-4 flex flex-col flex-1">
-            <div class="flex items-start gap-2">
-              <span
-                class="mt-1.5 inline-block h-5 w-5 rounded-full bg-emerald-800 flex-shrink-0"
-                aria-hidden="true"></span>
-              <div class="min-w-0 flex-1">
-                <h3
-                  class="text-[1.0625rem] font-semibold text-neutral-900 group-hover:text-neutral-700 transition-colors duration-150"
-                >
-                  Changemakers Library
-                </h3>
-                <p class="mt-0 text-[0.8125rem] text-neutral-600">
-                  changemakerslibrary.org
+        {
+          featuredSites.map((site) => (
+            <a
+              href={site.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group flex flex-col rounded-xl border border-neutral-400/60 bg-white transition-all duration-200 hover:border-neutral-400/90 hover:-translate-y-0.5 overflow-hidden"
+            >
+              <div class="relative aspect-[16/10] overflow-hidden bg-neutral-100 border-b border-neutral-100">
+                <Image
+                  src={site.screenshot}
+                  alt={`${site.name} homepage preview`}
+                  class="absolute inset-0 h-full w-full object-cover object-top"
+                  widths={[416, 832, 1640]}
+                  sizes="(min-width: 1280px) 400px, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  format="webp"
+                  quality={80}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div class="p-4 flex flex-col flex-1">
+                <div class="flex items-start gap-2">
+                  <img
+                    src={site.favicon.src}
+                    alt=""
+                    class:list={[
+                      "mt-1.5 h-5 w-5 flex-shrink-0",
+                      site.faviconRounded ? "rounded-lg" : "rounded",
+                    ]}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div class="min-w-0 flex-1">
+                    <h3 class="text-[1.0625rem] font-semibold text-neutral-900 group-hover:text-neutral-700 transition-colors duration-150">
+                      {site.name}
+                    </h3>
+                    <p class="mt-0 flex flex-wrap items-baseline gap-x-1.5 text-[0.8125rem] text-neutral-600">
+                      <span>{site.domain}</span>
+                      {site.tag && (
+                        <span class="text-neutral-500">{site.tag}</span>
+                      )}
+                    </p>
+                  </div>
+                  <img
+                    src={arrowUpRight.src}
+                    alt=""
+                    class="mt-1 h-3 w-3 ml-auto flex-shrink-0 opacity-0 group-hover:opacity-60 transition-opacity duration-150"
+                    aria-hidden="true"
+                  />
+                </div>
+                <p class="mt-3 ml-7 text-sm text-neutral-500 leading-relaxed flex-1">
+                  {site.description}
                 </p>
               </div>
-              <img
-                src={arrowUpRight.src}
-                alt=""
-                class="mt-1 h-3 w-3 ml-auto flex-shrink-0 opacity-0 group-hover:opacity-60 transition-opacity duration-150"
-                aria-hidden="true"
-              />
-            </div>
-            <p
-              class="mt-3 ml-7 text-sm text-neutral-500 leading-relaxed flex-1"
-            >
-              A fully custom, video-based learning platform built for a class at
-              the University of Victoria.
-            </p>
-          </div>
-        </a>
-
-        <!-- aceguitar.app -->
-        <a
-          href="https://aceguitar.app"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="group flex flex-col rounded-xl border border-neutral-400/60 bg-white transition-all duration-200 hover:border-neutral-400/90 hover:-translate-y-0.5 overflow-hidden"
-        >
-          <div
-            class="relative aspect-[16/10] overflow-hidden bg-neutral-100 border-b border-neutral-100"
-          >
-            <iframe
-              src="https://aceguitar.app"
-              title="aceguitar.app preview"
-              class="absolute inset-0 h-[200%] w-[200%] origin-top-left scale-50 pointer-events-none"
-              loading="lazy"
-              sandbox="allow-scripts allow-same-origin"
-              tabindex="-1"
-              aria-hidden="true"></iframe>
-          </div>
-          <div class="p-4 flex flex-col flex-1">
-            <div class="flex items-start gap-2">
-              <img
-                src="https://www.google.com/s2/favicons?domain=aceguitar.app&sz=64"
-                alt=""
-                class="mt-1.5 h-5 w-5 rounded"
-                loading="lazy"
-                decoding="async"
-              />
-              <div class="min-w-0 flex-1">
-                <h3
-                  class="text-[1.0625rem] font-semibold text-neutral-900 group-hover:text-neutral-700 transition-colors duration-150"
-                >
-                  AceGuitar
-                </h3>
-                <p class="mt-0 text-[0.8125rem] text-neutral-600">
-                  aceguitar.app
-                </p>
-              </div>
-              <img
-                src={arrowUpRight.src}
-                alt=""
-                class="mt-1 h-3 w-3 ml-auto flex-shrink-0 opacity-0 group-hover:opacity-60 transition-opacity duration-150"
-                aria-hidden="true"
-              />
-            </div>
-            <p
-              class="mt-3 ml-7 text-sm text-neutral-500 leading-relaxed flex-1"
-            >
-              Custom landing page for AceGuitar — a better guitar learning and
-              practice app.
-            </p>
-          </div>
-        </a>
-
-        <!-- munify.ca -->
-        <a
-          href="https://munify.ca"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="group flex flex-col rounded-xl border border-neutral-400/60 bg-white transition-all duration-200 hover:border-neutral-400/90 hover:-translate-y-0.5 overflow-hidden"
-        >
-          <div
-            class="relative aspect-[16/10] overflow-hidden bg-neutral-100 border-b border-neutral-100"
-          >
-            <iframe
-              src="https://munify.ca"
-              title="munify.ca preview"
-              class="absolute inset-0 h-[200%] w-[200%] origin-top-left scale-50 pointer-events-none"
-              loading="lazy"
-              sandbox="allow-scripts allow-same-origin"
-              tabindex="-1"
-              aria-hidden="true"></iframe>
-          </div>
-          <div class="p-4 flex flex-col flex-1">
-            <div class="flex items-start gap-2">
-              <img
-                src="https://munify.ca/favicon.svg"
-                alt=""
-                class="mt-1.5 h-5 w-5 rounded"
-                loading="lazy"
-                decoding="async"
-              />
-              <div class="min-w-0 flex-1">
-                <h3
-                  class="text-[1.0625rem] font-semibold text-neutral-900 group-hover:text-neutral-700 transition-colors duration-150"
-                >
-                  Munify
-                </h3>
-                <p class="mt-0 text-[0.8125rem] text-neutral-600">munify.ca</p>
-              </div>
-              <img
-                src={arrowUpRight.src}
-                alt=""
-                class="mt-1 h-3 w-3 ml-auto flex-shrink-0 opacity-0 group-hover:opacity-60 transition-opacity duration-150"
-                aria-hidden="true"
-              />
-            </div>
-            <p
-              class="mt-3 ml-7 text-sm text-neutral-500 leading-relaxed flex-1"
-            >
-              A civic briefing platform that turns Victoria council meetings
-              into clear, sourced summaries.
-            </p>
-          </div>
-        </a>
-
-        <!-- capitalreasoning.com -->
-        <a
-          href="https://capitalreasoning.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="group flex flex-col rounded-xl border border-neutral-400/60 bg-white transition-all duration-200 hover:border-neutral-400/90 hover:-translate-y-0.5 overflow-hidden"
-        >
-          <div
-            class="relative aspect-[16/10] overflow-hidden bg-neutral-100 border-b border-neutral-100"
-          >
-            <iframe
-              src="https://capitalreasoning.com"
-              title="capitalreasoning.com preview"
-              class="absolute inset-0 h-[200%] w-[200%] origin-top-left scale-50 pointer-events-none"
-              loading="lazy"
-              sandbox="allow-scripts allow-same-origin"
-              tabindex="-1"
-              aria-hidden="true"></iframe>
-          </div>
-          <div class="p-4 flex flex-col flex-1">
-            <div class="flex items-start gap-2">
-              <img
-                src="https://www.google.com/s2/favicons?domain=capitalreasoning.com&sz=64"
-                alt=""
-                class="mt-1.5 h-5 w-5 rounded"
-                loading="lazy"
-                decoding="async"
-              />
-              <div class="min-w-0 flex-1">
-                <h3
-                  class="text-[1.0625rem] font-semibold text-neutral-900 group-hover:text-neutral-700 transition-colors duration-150"
-                >
-                  Capital Reasoning
-                </h3>
-                <p class="mt-0 text-[0.8125rem] text-neutral-600">
-                  capitalreasoning.com
-                </p>
-              </div>
-              <img
-                src={arrowUpRight.src}
-                alt=""
-                class="mt-1 h-3 w-3 ml-auto flex-shrink-0 opacity-0 group-hover:opacity-60 transition-opacity duration-150"
-                aria-hidden="true"
-              />
-            </div>
-            <p
-              class="mt-3 ml-7 text-sm text-neutral-500 leading-relaxed flex-1"
-            >
-              Marketing site for a B2B AI SaaS company, built with Astro.js.
-            </p>
-          </div>
-        </a>
-
-        <!-- ACIS Laboratories -->
-        <a
-          href="https://acislabs.ca/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="group flex flex-col rounded-xl border border-neutral-400/60 bg-white transition-all duration-200 hover:border-neutral-400/90 hover:-translate-y-0.5 overflow-hidden"
-        >
-          <div
-            class="relative aspect-[16/10] overflow-hidden bg-neutral-100 border-b border-neutral-100"
-          >
-            <iframe
-              src="https://acislabs.ca/"
-              title="ACIS Laboratories preview"
-              class="absolute inset-0 h-[200%] w-[200%] origin-top-left scale-50 pointer-events-none"
-              loading="lazy"
-              sandbox="allow-scripts allow-same-origin"
-              tabindex="-1"
-              aria-hidden="true"></iframe>
-          </div>
-          <div class="p-4 flex flex-col flex-1">
-            <div class="flex items-start gap-2">
-              <img
-                src="https://acislabs.ca/favicon-32x32.png"
-                alt=""
-                class="mt-1.5 h-5 w-5 rounded"
-                loading="lazy"
-                decoding="async"
-              />
-              <div class="min-w-0 flex-1">
-                <h3
-                  class="text-[1.0625rem] font-semibold text-neutral-900 group-hover:text-neutral-700 transition-colors duration-150"
-                >
-                  ACIS Laboratories
-                </h3>
-                <p class="mt-0 text-[0.8125rem] text-neutral-600">
-                  acislabs.ca
-                </p>
-              </div>
-              <img
-                src={arrowUpRight.src}
-                alt=""
-                class="mt-1 h-3 w-3 ml-auto flex-shrink-0 opacity-0 group-hover:opacity-60 transition-opacity duration-150"
-                aria-hidden="true"
-              />
-            </div>
-            <p
-              class="mt-3 ml-7 text-sm text-neutral-500 leading-relaxed flex-1"
-            >
-              Research site for UVic’s Advanced Control and Intelligent Systems
-              Laboratories.
-            </p>
-          </div>
-        </a>
-
-        <!-- kelownaboatcharters.ca -->
-        <a
-          href="https://kelownaboatcharters.ca"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="group flex flex-col rounded-xl border border-neutral-400/60 bg-white transition-all duration-200 hover:border-neutral-400/90 hover:-translate-y-0.5 overflow-hidden"
-        >
-          <div
-            class="relative aspect-[16/10] overflow-hidden bg-neutral-100 border-b border-neutral-100"
-          >
-            <iframe
-              src="https://kelownaboatcharters.ca"
-              title="kelownaboatcharters.ca preview"
-              class="absolute inset-0 h-[200%] w-[200%] origin-top-left scale-50 pointer-events-none"
-              loading="lazy"
-              sandbox="allow-scripts allow-same-origin"
-              tabindex="-1"
-              aria-hidden="true"></iframe>
-          </div>
-          <div class="p-4 flex flex-col flex-1">
-            <div class="flex items-start gap-2">
-              <img
-                src="https://www.google.com/s2/favicons?domain=kelownaboatcharters.ca&sz=64"
-                alt=""
-                class="mt-1.5 h-5 w-5 rounded"
-                loading="lazy"
-                decoding="async"
-              />
-              <div class="min-w-0 flex-1">
-                <h3
-                  class="text-[1.0625rem] font-semibold text-neutral-900 group-hover:text-neutral-700 transition-colors duration-150"
-                >
-                  Kelowna Boat Charters
-                </h3>
-                <p
-                  class="mt-0 flex flex-wrap items-baseline gap-x-1.5 text-[0.8125rem] text-neutral-600"
-                >
-                  <span>kelownaboatcharters.ca</span>
-                  <span class="text-neutral-400">(Collaborative)</span>
-                </p>
-              </div>
-              <img
-                src={arrowUpRight.src}
-                alt=""
-                class="mt-1 h-3 w-3 ml-auto flex-shrink-0 opacity-0 group-hover:opacity-60 transition-opacity duration-150"
-                aria-hidden="true"
-              />
-            </div>
-            <p
-              class="mt-3 ml-7 text-sm text-neutral-500 leading-relaxed flex-1"
-            >
-              Refreshed the site with improved formatting, accessibility, and
-              layout.
-            </p>
-          </div>
-        </a>
+            </a>
+          ))
+        }
       </div>
 
       <!-- Additional sites — compact format -->
       <div class="mt-5 grid gap-5 md:grid-cols-3">
-        <a
-          href="https://communityassemblynetwork.ca"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="group flex items-start gap-2 rounded-xl border border-neutral-400/60 bg-white p-4 transition-all duration-200 hover:border-neutral-400/90 hover:-translate-y-0.5"
-        >
-          <img
-            src="https://www.google.com/s2/favicons?domain=communityassemblynetwork.ca&sz=64"
-            alt=""
-            class="mt-1.5 h-5 w-5 rounded flex-shrink-0"
-            loading="lazy"
-            decoding="async"
-          />
-          <div class="min-w-0 flex-1">
-            <div class="flex items-start gap-2">
-              <h3
-                class="min-w-0 break-words text-[1.0625rem] font-semibold leading-5 text-neutral-900 transition-colors duration-150 group-hover:text-neutral-700"
-              >
-                Community Assembly Network
-              </h3>
-              <img
-                src={arrowUpRight.src}
-                alt=""
-                class="mt-1 h-3 w-3 ml-auto flex-shrink-0 opacity-0 group-hover:opacity-60 transition-opacity duration-150"
-                aria-hidden="true"
-              />
-            </div>
-            <p
-              class="mt-0 flex flex-wrap items-baseline gap-x-1.5 text-[0.8125rem] text-neutral-600"
+        {
+          moreSites.map((site) => (
+            <a
+              href={site.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group flex items-start gap-2 rounded-xl border border-neutral-400/60 bg-white p-4 transition-all duration-200 hover:border-neutral-400/90 hover:-translate-y-0.5"
             >
-              <span>communityassembly<wbr />network.ca</span>
-              <span class="text-neutral-400">(Collaborative)</span>
-            </p>
-            <p class="mt-3 text-sm text-neutral-500 leading-relaxed">
-              WordPress site for a democratic advocacy group — built to share
-              information and collect contacts.
-            </p>
-          </div>
-        </a>
-
-        <a
-          href="https://survivalresearch.ca"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="group flex items-start gap-2 rounded-xl border border-neutral-400/60 bg-white p-4 transition-all duration-200 hover:border-neutral-400/90 hover:-translate-y-0.5"
-        >
-          <img
-            src="https://www.google.com/s2/favicons?domain=survivalresearch.ca&sz=64"
-            alt=""
-            class="mt-1.5 h-5 w-5 rounded flex-shrink-0"
-            loading="lazy"
-            decoding="async"
-          />
-          <div class="min-w-0 flex-1">
-            <div class="flex items-start gap-2">
-              <h3
-                class="min-w-0 whitespace-nowrap text-sm font-semibold leading-5 tracking-tight text-neutral-900 transition-colors duration-150 group-hover:text-neutral-700 md:text-[1.0625rem]"
-              >
-                Survival Research Institute of Canada
-              </h3>
               <img
-                src={arrowUpRight.src}
+                src={site.favicon.src}
                 alt=""
-                class="mt-1 h-3 w-3 ml-auto flex-shrink-0 opacity-0 group-hover:opacity-60 transition-opacity duration-150"
-                aria-hidden="true"
+                class="mt-1.5 h-5 w-5 rounded flex-shrink-0"
+                loading="lazy"
+                decoding="async"
               />
-            </div>
-            <p
-              class="mt-0 flex flex-wrap items-baseline gap-x-1.5 text-[0.8125rem] text-neutral-600"
-            >
-              <span>survivalresearch.ca</span>
-              <span class="text-neutral-400">(Collaborative)</span>
-            </p>
-            <p class="mt-3 text-sm text-neutral-500 leading-relaxed">
-              Integrated a multi-thousand-entry database of authors and
-              publications for public browsing.
-            </p>
-          </div>
-        </a>
-
-        <a
-          href="https://bcgreencaucus.ca"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="group flex items-start gap-2 rounded-xl border border-neutral-400/60 bg-white p-4 transition-all duration-200 hover:border-neutral-400/90 hover:-translate-y-0.5"
-        >
-          <img
-            src="https://www.google.com/s2/favicons?domain=bcgreencaucus.ca&sz=64"
-            alt=""
-            class="mt-1.5 h-5 w-5 rounded flex-shrink-0"
-            loading="lazy"
-            decoding="async"
-          />
-          <div class="min-w-0 flex-1">
-            <div class="flex items-start gap-2">
-              <h3
-                class="min-w-0 break-words text-[1.0625rem] font-semibold leading-5 text-neutral-900 transition-colors duration-150 group-hover:text-neutral-700"
-              >
-                BC Green Caucus
-              </h3>
-              <img
-                src={arrowUpRight.src}
-                alt=""
-                class="mt-1 h-3 w-3 ml-auto flex-shrink-0 opacity-0 group-hover:opacity-60 transition-opacity duration-150"
-                aria-hidden="true"
-              />
-            </div>
-            <p
-              class="mt-0 flex flex-wrap items-baseline gap-x-1.5 text-[0.8125rem] text-neutral-600"
-            >
-              <span>bcgreencaucus.ca</span>
-              <span class="text-neutral-400">(Collaborative)</span>
-            </p>
-            <p class="mt-3 text-sm text-neutral-500 leading-relaxed">
-              Completed a full site upgrade, including social feed integration
-              and modern design touches.
-            </p>
-          </div>
-        </a>
+              <div class="min-w-0 flex-1">
+                <div class="flex items-start gap-2">
+                  <h3
+                    class={
+                      site.nameClass ??
+                      "min-w-0 break-words text-[1.0625rem] font-semibold leading-5 text-neutral-900 transition-colors duration-150 group-hover:text-neutral-700"
+                    }
+                  >
+                    {site.name}
+                  </h3>
+                  <img
+                    src={arrowUpRight.src}
+                    alt=""
+                    class="mt-1 h-3 w-3 ml-auto flex-shrink-0 opacity-0 group-hover:opacity-60 transition-opacity duration-150"
+                    aria-hidden="true"
+                  />
+                </div>
+                <p class="mt-0 flex flex-wrap items-baseline gap-x-1.5 text-[0.8125rem] text-neutral-600">
+                  <span set:html={site.domain} />
+                  <span class="text-neutral-500">{site.tag}</span>
+                </p>
+                <p class="mt-3 text-sm text-neutral-500 leading-relaxed">
+                  {site.description}
+                </p>
+              </div>
+            </a>
+          ))
+        }
       </div>
     </section>
   </div>
@@ -714,6 +500,6 @@ const structuredData = {
   <footer
     class="mt-auto pt-8 pb-4 text-xs text-neutral-500 text-left px-4 sm:px-0"
   >
-    © 2025 Peter Salmon
+    © {currentYear} Peter Salmon
   </footer>
 </Base>
