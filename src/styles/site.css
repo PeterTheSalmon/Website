@@ -25,8 +25,12 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
+/* Pages fill at least the screen, so the footer always sits at the bottom. */
 body {
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
+  min-height: 100svh;
   overflow-x: clip;
   background: var(--paper);
   color: var(--text);
@@ -75,6 +79,10 @@ html {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: 6px;
+}
+
+main {
+  flex: 1 0 auto;
 }
 
 .wrap {
