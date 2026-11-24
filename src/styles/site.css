@@ -764,7 +764,8 @@ main > .section:last-child {
 /* Work page: current projects as large rows, screenshot left, text right */
 .features {
   display: grid;
-  gap: clamp(1.75rem, 3.5vw, 2.5rem);
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(3.5rem, 6vw, 4.5rem);
   margin-top: clamp(1.75rem, 3.5vw, 2.75rem);
   padding-bottom: clamp(2rem, 5vw, 3.5rem);
 }
@@ -801,7 +802,7 @@ main > .section:last-child {
 }
 
 .feature .row-meta {
-  margin-top: 0.75rem;
+  margin-top: 0.4rem;
 }
 
 .feature:hover .row-meta {
@@ -1055,7 +1056,13 @@ main > .section:last-child {
   }
 
   .projects {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 3.5rem;
+  }
+
+  .project-title,
+  .projects-feature .project-title {
+    margin-top: 0.75rem;
   }
 
   .row-link {
@@ -1080,6 +1087,15 @@ main > .section:last-child {
 
 @media (max-width: 600px) {
   .feature {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.85rem;
+  }
+
+  .feature p {
+    margin-top: 0.2rem;
+  }
+
+  .feature .row-meta {
+    margin-top: 0.3rem;
   }
 }
