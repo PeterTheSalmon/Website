@@ -9,6 +9,8 @@ export interface Props {
   ogImageWidth?: number;
   ogImageHeight?: number;
   ogImageAlt?: string;
+  themeColor?: string;
+  pageClass?: string;
   jsonLd?: Record<string, unknown> | Array<Record<string, unknown>>;
 }
 
@@ -20,6 +22,8 @@ const {
   ogImageWidth,
   ogImageHeight,
   ogImageAlt = title,
+  themeColor = "#fffdfb",
+  pageClass,
   jsonLd,
 } = Astro.props as Props;
 const siteName = "Peter Salmon";
@@ -42,7 +46,7 @@ const twitterCardType = ogImage ? "summary_large_image" : "summary";
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#fffdfb" />
+    <meta name="theme-color" content={themeColor} />
     {resolvedCanonical && <link rel="canonical" href={resolvedCanonical} />}
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
@@ -54,8 +58,16 @@ const twitterCardType = ogImage ? "summary_large_image" : "summary";
       )
     }
     {ogImage && <meta property="og:image" content={ogImage} />}
-    {ogImage && ogImageWidth && <meta property="og:image:width" content={ogImageWidth} />}
-    {ogImage && ogImageHeight && <meta property="og:image:height" content={ogImageHeight} />}
+    {
+      ogImage && ogImageWidth && (
+        <meta property="og:image:width" content={String(ogImageWidth)} />
+      )
+    }
+    {
+      ogImage && ogImageHeight && (
+        <meta property="og:image:height" content={String(ogImageHeight)} />
+      )
+    }
     {ogImage && <meta property="og:image:alt" content={ogImageAlt} />}
     <meta name="twitter:card" content={twitterCardType} />
     <meta name="twitter:title" content={title} />
@@ -105,11 +117,20 @@ const twitterCardType = ogImage ? "summary_large_image" : "summary";
       )
     }
   </head>
-  <body class="min-h-screen font-sans bg-[#fffdfb] text-black antialiased flex">
-    <main
-      class="w-full max-w-7xl mx-auto flex-1 flex flex-col px-4 sm:px-6 md:px-8 lg:px-9 xl:px-10 py-12 sm:py-10 lg:py-12"
-    >
-      <slot />
-    </main>
+  <body
+    class:list={[
+      "min-h-screen font-sans bg-[#fffdfb] text-black antialiased flex",
+      pageClass,
+    ]}
+  >
+    {
+      Astro.slots.has("page") ? (
+        <slot name="page" />
+      ) : (
+        <main class="w-full max-w-7xl mx-auto flex-1 flex flex-col px-4 sm:px-6 md:px-8 lg:px-9 xl:px-10 py-12 sm:py-10 lg:py-12">
+          <slot />
+        </main>
+      )
+    }
   </body>
 </html>

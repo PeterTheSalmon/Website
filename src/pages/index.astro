@@ -1,174 +1,70 @@
 ---
 import { Image } from "astro:assets";
-import aceguitarLogo from "../assets/aceguitar-logo.png";
-import crsLogo from "../assets/crs-logo.png";
-import headshot from "../assets/headshot.jpeg";
-import arrowRight from "../assets/icons/arrow-right.svg";
-import arrowUpRight from "../assets/icons/arrow-up-right.svg";
-
-import shotAcis from "../assets/portfolio/acislabs.ca.png";
-import shotAceguitar from "../assets/portfolio/aceguitar.app.png";
-import shotCapitalReasoning from "../assets/portfolio/capitalreasoning.com.png";
-import shotChangemakers from "../assets/portfolio/changemakerslibrary.org.png";
-import shotKelowna from "../assets/portfolio/kelownaboatcharters.ca.png";
-import shotMunify from "../assets/portfolio/munify.ca.png";
-
-import favAcis from "../assets/favicons/acislabs.ca.png";
-import favAceguitar from "../assets/favicons/aceguitar.app.png";
-import favBcGreen from "../assets/favicons/bcgreencaucus.ca.png";
-import favChangemakers from "../assets/favicons/changemakerslibrary.org.svg";
-import favCommunity from "../assets/favicons/communityassemblynetwork.ca.png";
-import favKelowna from "../assets/favicons/kelownaboatcharters.ca.png";
-import favMunify from "../assets/favicons/munify.ca.svg";
-import favSurvival from "../assets/favicons/survivalresearch.ca.png";
-
 import Base from "../layouts/Base.astro";
+import arrowUpRight from "../assets/icons/arrow-up-right.svg";
+import headshot from "../assets/headshot.jpeg";
+import harbourMap from "../assets/atlas/victoria-harbour.webp";
+import parcelStudy from "../assets/atlas/parcel-study.webp";
+import "../styles/atlas.css";
 
+const email = "mailto:peter@petersalmon.dev";
+const linkedin = "https://www.linkedin.com/in/peterthesalmon/";
+const urbora = "https://urbora.ai/";
 const pageTitle = "Peter Salmon";
 const pageDescription =
-  "Multidisciplinary technologist building effective digital experiences, AI systems, and campaign infrastructure for organizations that need momentum.";
-const siteFromConfig = Astro.site ? String(Astro.site) : undefined;
-const origin = siteFromConfig ?? Astro.url.origin;
-const canonicalUrl = new URL(Astro.url.pathname || "/", origin).toString();
-const ogImage = origin
-  ? new URL("/og-image.png", origin).toString()
-  : undefined;
-const headshotUrl = origin
-  ? new URL(headshot.src, origin).toString()
-  : undefined;
+  "Peter Salmon builds software for land-use research and civic decision-making in Victoria, British Columbia.";
+const origin = Astro.site ?? Astro.url.origin;
+const canonicalUrl = new URL("/", origin).href;
+const ogImage = new URL("/og-image.png", origin).href;
+
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: pageTitle,
   description: pageDescription,
-  jobTitle: "Technologist & Campaigner",
+  jobTitle: "CEO",
   url: canonicalUrl,
-  image: headshotUrl,
-  email: "mailto:peter@petersalmon.dev",
+  image: new URL(headshot.src, origin).href,
+  email,
   telephone: "+1-778-676-8643",
-  sameAs: [
-    "https://capitalreasoning.com",
-    "https://aceguitar.app",
-    "https://www.linkedin.com/in/peterthesalmon/",
-  ],
+  sameAs: ["https://capitalreasoning.com", "https://aceguitar.app", linkedin],
   worksFor: {
     "@type": "Organization",
-    name: "Capital Reasoning Systems",
-    url: "https://capitalreasoning.com",
+    name: "Fernwood Agentic",
+    url: "https://urbora.ai/about",
   },
-} as const;
+};
 
-const projects = [
+const otherWork = [
   {
-    name: "Capital Reasoning",
-    tagline: "On-Premises AI for your Business",
-    href: "https://capitalreasoning.com",
-    logo: crsLogo,
-    logoAlt: "Capital Reasoning Systems logo",
-    ring: true,
-  },
-  {
-    name: "AceGuitar",
-    tagline: "Tuner, Metronome, Chords, and more",
-    href: "https://aceguitar.app",
-    logo: aceguitarLogo,
-    logoAlt: "AceGuitar logo",
-    ring: false,
-  },
-];
-
-const featuredSites = [
-  {
-    name: "Changemakers Library",
-    domain: "changemakerslibrary.org",
-    href: "https://changemakerslibrary.org",
-    screenshot: shotChangemakers,
-    favicon: favChangemakers,
-    description:
-      "A fully custom, video-based learning platform built for a class at the University of Victoria.",
-  },
-  {
-    name: "AceGuitar",
-    domain: "aceguitar.app",
-    href: "https://aceguitar.app",
-    screenshot: shotAceguitar,
-    favicon: favAceguitar,
-    description:
-      "Custom landing page for AceGuitar — a better guitar learning and practice app.",
+    name: "Polity",
+    href: "https://polity.coop/",
+    description: "Tools for public engagement and group decisions.",
   },
   {
     name: "Munify",
-    domain: "munify.ca",
     href: "https://munify.ca",
-    screenshot: shotMunify,
-    favicon: favMunify,
     description:
-      "A civic briefing platform that turns Victoria council meetings into clear, sourced summaries.",
-  },
-  {
-    name: "Capital Reasoning",
-    domain: "capitalreasoning.com",
-    href: "https://capitalreasoning.com",
-    screenshot: shotCapitalReasoning,
-    favicon: crsLogo,
-    faviconRounded: true,
-    description:
-      "Marketing site for a B2B AI SaaS company, built with Astro.js.",
-  },
-  {
-    name: "ACIS Laboratories",
-    domain: "acislabs.ca",
-    href: "https://acislabs.ca/",
-    screenshot: shotAcis,
-    favicon: favAcis,
-    description:
-      "Research site for UVic’s Advanced Control and Intelligent Systems Laboratories.",
-  },
-  {
-    name: "Kelowna Boat Charters",
-    domain: "kelownaboatcharters.ca",
-    href: "https://kelownaboatcharters.ca",
-    screenshot: shotKelowna,
-    favicon: favKelowna,
-    tag: "(Collaborative)",
-    description:
-      "Refreshed the site with improved formatting, accessibility, and layout.",
+      "Victoria council briefings with links to the original records.",
   },
 ];
 
-const moreSites = [
+const earlierWork = [
+  { name: "Changemakers Library", href: "https://changemakerslibrary.org" },
+  { name: "ACIS Laboratories", href: "https://acislabs.ca/" },
+  { name: "AceGuitar", href: "https://aceguitar.app" },
+  { name: "Capital Reasoning", href: "https://capitalreasoning.com" },
+  { name: "Kelowna Boat Charters", href: "https://kelownaboatcharters.ca" },
   {
     name: "Community Assembly Network",
-    domain: "communityassembly<wbr />network.ca",
     href: "https://communityassemblynetwork.ca",
-    favicon: favCommunity,
-    tag: "(Collaborative)",
-    description:
-      "WordPress site for a democratic advocacy group — built to share information and collect contacts.",
   },
   {
     name: "Survival Research Institute of Canada",
-    domain: "survivalresearch.ca",
     href: "https://survivalresearch.ca",
-    favicon: favSurvival,
-    tag: "(Collaborative)",
-    nameClass:
-      "min-w-0 whitespace-nowrap text-sm font-semibold leading-5 tracking-tight text-neutral-900 transition-colors duration-150 group-hover:text-neutral-700 md:text-[1.0625rem]",
-    description:
-      "Integrated a multi-thousand-entry database of authors and publications for public browsing.",
   },
-  {
-    name: "BC Green Caucus",
-    domain: "bcgreencaucus.ca",
-    href: "https://bcgreencaucus.ca",
-    favicon: favBcGreen,
-    tag: "(Collaborative)",
-    description:
-      "Completed a full site upgrade, including social feed integration and modern design touches.",
-  },
+  { name: "BC Green Caucus", href: "https://bcgreencaucus.ca" },
 ];
-
-const currentYear = new Date().getFullYear();
 ---
 
 <Base
@@ -179,327 +75,168 @@ const currentYear = new Date().getFullYear();
   ogImageWidth={1200}
   ogImageHeight={630}
   ogImageAlt="Peter Salmon — Multidisciplinary technologist"
+  themeColor="#fdfdfc"
+  pageClass="atlas-page"
   jsonLd={structuredData}
 >
-  <div class="relative flex flex-col flex-1">
-    <div class="animate-fade-up md:pt-6 lg:pt-10">
-      <div
-        class="grid gap-10 sm:grid-cols-2 sm:items-center sm:gap-x-8 xl:grid-cols-[0.35fr_0.65fr] lg:items-start lg:gap-x-16 lg:gap-y-16 px-4 sm:px-0"
+  <div class="atlas" slot="page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+      <a class="site-name" href="/" aria-label="Peter Salmon, home"
+        >Peter Salmon</a
       >
-        <section
-          class="flex items-center justify-center sm:col-start-2 sm:row-start-1 sm:justify-self-end lg:col-start-2 lg:row-start-1 lg:justify-self-end"
-        >
-          <Image
-            src={headshot}
-            alt="Portrait of Peter Salmon"
-            class="h-60 w-60 sm:h-64 sm:w-64 lg:h-64 lg:w-64 xl:h-[17rem] xl:w-[17rem] rounded-full object-cover shadow-[0_8px_22px_rgba(15,23,42,0.14)] -scale-x-100 transform"
-            loading="eager"
-            decoding="async"
-            fetchpriority="high"
-            widths={[272, 384, 544, 640]}
-            sizes="(min-width: 1280px) 272px, (min-width: 1024px) 256px, (min-width: 640px) 256px, 240px"
-            formats={["avif", "jpeg"]}
-            quality={90}
-          />
-        </section>
+      <nav aria-label="Main navigation">
+        <a href="#projects">Work</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
 
-        <section
-          class="text-center sm:col-start-1 sm:row-start-1 sm:text-left md:flex md:h-full md:flex-col md:justify-center md:text-left lg:text-left"
-        >
-          <h1
-            class="font-serif text-4xl font-bold leading-tight text-neutral-900 sm:text-[2.85rem] lg:text-6xl sm:whitespace-nowrap"
-          >
-            Peter Salmon
-          </h1>
-          <p
-            class="mt-3 text-base text-neutral-600 max-w-md mx-auto sm:mx-0 sm:max-w-none lg:max-w-md"
-          >
-            Multidisciplinary technologist building digital experiences, AI
-            systems, and campaign infrastructure.
+    <main id="main-content" tabindex="-1">
+      <section class="hero" aria-labelledby="page-title">
+        <div class="hero-copy">
+          <h1 id="page-title">Peter Salmon</h1>
+          <p class="home-base">Victoria, British Columbia</p>
+          <p class="intro">
+            I lead Fernwood Agentic, where we’re building Urbora to make
+            land-use research easier.
           </p>
-          <div
-            class="mt-5 space-y-1 text-lg text-neutral-700 mx-auto sm:mx-0 sm:text-left md:mx-0 md:text-left"
+          <a class="text-link" href={urbora}
+            >Explore Urbora <img
+              src={arrowUpRight.src}
+              width="16"
+              height="16"
+              alt=""
+            /></a
           >
-            <a
-              href="mailto:peter@petersalmon.dev"
-              class="block w-fit mx-auto sm:mx-0 transition-opacity duration-150 hover:opacity-70"
-            >
-              peter@petersalmon.dev
-            </a>
-            <a
-              href="tel:+17786768643"
-              class="block w-fit mx-auto sm:mx-0 transition-opacity duration-150 hover:opacity-70"
-            >
-              (778) 676-8643
-            </a>
-            <div
-              class="mt-2 flex items-center justify-center sm:justify-start gap-6"
-            >
-              <a
-                href="/peter-salmon-resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="group inline-flex items-center gap-1.5 font-medium text-neutral-800 transition-all duration-150 hover:opacity-75"
-              >
-                Resume
-                <img
-                  src={arrowUpRight.src}
-                  alt=""
-                  class="h-3.5 w-3.5 translate-y-px"
-                />
-              </a>
-              <a
-                href="https://www.linkedin.com/in/peterthesalmon/"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="group inline-flex items-center gap-1.5 font-medium text-[#0A66C2] transition-all duration-150 hover:opacity-75"
-              >
-                LinkedIn
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 256 256"
-                  class="h-3.5 w-3.5 translate-y-px"
-                  fill="currentColor"
-                  aria-hidden="true"
-                  focusable="false"
-                >
-                  <path
-                    d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"
-                  ></path>
-                </svg>
+        </div>
+
+        <div class="harbour" aria-hidden="true">
+          <Image
+            src={harbourMap}
+            alt=""
+            widths={[600, 900, 1180]}
+            sizes="(max-width: 760px) 100vw, (max-width: 1300px) 67vw, 850px"
+            format="webp"
+            quality={88}
+            loading="eager"
+            fetchpriority="high"
+          />
+        </div>
+      </section>
+
+      <section class="featured" id="projects" aria-labelledby="urbora-title">
+        <div class="feature-heading">
+          <h2 id="urbora-title">Urbora</h2>
+          <p>Find out what you can build on a property.</p>
+        </div>
+
+        <figure class="parcel-figure">
+          <div class="parcel-grid">
+            <Image
+              src={parcelStudy}
+              alt="A single lot highlighted on an illustrative neighbourhood map."
+              widths={[600, 900, 1200]}
+              sizes="(max-width: 440px) calc(100vw - 32px), (max-width: 760px) calc(100vw - 40px), (max-width: 1260px) 55vw, 705px"
+              format="webp"
+              quality={88}
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="source-panel">
+              <h3>From parcel to source</h3>
+              <p>
+                Ask about a lot in Vancouver or Victoria and read the bylaws,
+                plans, and past decisions behind Urbora’s answer.
+              </p>
+              <a class="text-link" href={urbora}>
+                Visit Urbora
+                <img src={arrowUpRight.src} width="16" height="16" alt="" />
               </a>
             </div>
           </div>
-        </section>
+          <figcaption>Conceptual illustration</figcaption>
+        </figure>
+      </section>
 
-        <section
-          id="projects"
-          class="sm:col-span-2 lg:col-span-1 lg:col-start-1 lg:row-start-2"
-        >
-          <h2
-            class="font-serif text-[2rem] font-bold text-neutral-900 sm:text-[2.25rem] lg:text-[2.75rem]"
-          >
-            Projects
-          </h2>
-          <div class="mt-4 flex flex-col gap-2 md:gap-2.5">
-            {
-              projects.map((project) => (
-                <a
-                  href={project.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="group flex items-center gap-3 rounded-2xl py-1.5 pr-2 transition-colors duration-150 hover:bg-neutral-100/60"
-                >
-                  <Image
-                    src={project.logo}
-                    alt={project.logoAlt}
-                    class:list={[
-                      "h-12 w-12 flex-shrink-0 rounded-xl object-contain",
-                      project.ring && "ring-1 ring-[rgba(15,23,42,0.18)]",
-                    ]}
-                    widths={[48, 96, 144]}
-                    sizes="48px"
-                    format="webp"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <div class="flex-1">
-                    <p class="text-lg font-semibold text-neutral-900">
-                      {project.name}
-                    </p>
-                    <p class="mt-1 text-sm text-neutral-600">
-                      {project.tagline}
-                    </p>
-                  </div>
-                  <img
-                    src={arrowUpRight.src}
-                    alt=""
-                    class="h-4 w-4 flex-shrink-0 mr-2"
-                    aria-hidden="true"
-                  />
-                </a>
-              ))
-            }
-          </div>
-        </section>
+      <section class="other-work" aria-labelledby="other-title">
+        <h2 id="other-title">Other work</h2>
+        <div class="project-grid">
+          {
+            otherWork.map(({ name, href, description }) => (
+              <article>
+                <h3>
+                  <a href={href}>
+                    {name}{" "}
+                    <img src={arrowUpRight.src} width="20" height="20" alt="" />
+                  </a>
+                </h3>
+                <p>{description}</p>
+              </article>
+            ))
+          }
+        </div>
+      </section>
 
-        <section
-          id="services"
-          class="sm:col-span-2 lg:col-span-1 lg:col-start-2 lg:row-start-2"
-        >
-          <h2
-            class="font-serif text-[2rem] font-bold text-neutral-900 sm:text-[2.25rem] lg:text-[2.75rem]"
-          >
-            Services
-          </h2>
-          <div
-            class="mt-5 space-y-6 xl:grid xl:grid-cols-2 xl:gap-x-10 xl:gap-y-6 xl:space-y-0"
-          >
-            <article class="xl:col-start-1 xl:row-start-1">
-              <h3 class="text-lg font-semibold text-neutral-900">
-                Web Design &amp; Development
-              </h3>
-              <p class="mt-2 text-sm leading-relaxed text-neutral-600">
-                Custom websites — from WordPress blogs to tailor-made web apps.
-              </p>
-            </article>
-
-            <article class="xl:col-start-2 xl:row-start-1">
-              <h3 class="text-lg font-semibold text-neutral-900">
-                Software &amp; AI Systems
-              </h3>
-              <p class="mt-2 text-sm leading-relaxed text-neutral-600">
-                Practical systems that integrate AI and automate workflows,
-                built for your needs.
-              </p>
-            </article>
-          </div>
-
-          <div id="contact" class="mt-10 text-left text-base text-neutral-700">
-            <a
-              href="mailto:peter@petersalmon.dev"
-              class="group inline-flex items-center gap-2 rounded-md border border-neutral-800/40 px-4 py-2 font-medium text-neutral-800 transition-all duration-200 ease-out hover:border-neutral-900 hover:bg-neutral-900/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-800/40 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
-            >
-              <span>Interested in working together?</span>
-              <span class="font-semibold">Reach out</span>
-              <img
-                src={arrowRight.src}
-                alt=""
-                class="h-4 w-4 transition-transform duration-200 ease-out"
-                aria-hidden="true"
-              />
-            </a>
-          </div>
-        </section>
-      </div>
-    </div>
-
-    <section
-      id="website-portfolio"
-      class="mt-16 sm:mt-20 mb-8 sm:mb-12 px-4 sm:px-0 animate-fade-up"
-    >
-      <h2
-        class="font-serif text-[2rem] font-bold text-neutral-900 sm:text-[2.25rem] lg:text-[2.75rem]"
+      <section
+        class="earlier-work"
+        id="website-portfolio"
+        aria-labelledby="earlier-title"
       >
-        Website Portfolio
-      </h2>
-      <p class="mt-3 text-base text-neutral-600 max-w-2xl">
-        Websites I have designed, built, and contributed to.
+        <h2 id="earlier-title">Earlier work</h2>
+        <ul>
+          {
+            earlierWork.map(({ name, href }) => (
+              <li>
+                <a href={href}>{name}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+      <section class="about" id="about" aria-labelledby="about-title">
+        <Image
+          src={headshot}
+          alt=""
+          width={144}
+          height={144}
+          format="webp"
+          loading="lazy"
+          decoding="async"
+        />
+        <div>
+          <h2 id="about-title">About</h2>
+          <p id="services">
+            I build software and have worked on political campaigns and public
+            engagement.
+          </p>
+          <a href="/peter-salmon-resume.pdf"
+            >Résumé <img
+              src={arrowUpRight.src}
+              width="14"
+              height="14"
+              alt=""
+            /></a
+          >
+        </div>
+      </section>
+    </main>
+
+    <footer id="contact">
+      <address>
+        <a href={email}>Email</a>
+        <a href={linkedin}>LinkedIn</a>
+        <a href="tel:+17786768643">Phone</a>
+      </address>
+      <small>© {new Date().getFullYear()} Peter Salmon</small>
+      <p class="map-credits">
+        Map data · <a href="https://openfreemap.org/">OpenFreeMap</a> · <a
+          href="https://openmaptiles.org/">© OpenMapTiles</a
+        > · <a href="https://www.openstreetmap.org/copyright"
+          >© OpenStreetMap contributors</a
+        >
       </p>
-
-      <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {
-          featuredSites.map((site) => (
-            <a
-              href={site.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="group flex flex-col rounded-xl border border-neutral-400/60 bg-white transition-all duration-200 hover:border-neutral-400/90 hover:-translate-y-0.5 overflow-hidden"
-            >
-              <div class="relative aspect-[16/10] overflow-hidden bg-neutral-100 border-b border-neutral-100">
-                <Image
-                  src={site.screenshot}
-                  alt={`${site.name} homepage preview`}
-                  class="absolute inset-0 h-full w-full object-cover object-top"
-                  widths={[416, 832, 1640]}
-                  sizes="(min-width: 1280px) 400px, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                  format="webp"
-                  quality={80}
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-              <div class="p-4 flex flex-col flex-1">
-                <div class="flex items-start gap-2">
-                  <img
-                    src={site.favicon.src}
-                    alt=""
-                    class:list={[
-                      "mt-1.5 h-5 w-5 flex-shrink-0",
-                      site.faviconRounded ? "rounded-lg" : "rounded",
-                    ]}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <div class="min-w-0 flex-1">
-                    <h3 class="text-[1.0625rem] font-semibold text-neutral-900 group-hover:text-neutral-700 transition-colors duration-150">
-                      {site.name}
-                    </h3>
-                    <p class="mt-0 flex flex-wrap items-baseline gap-x-1.5 text-[0.8125rem] text-neutral-600">
-                      <span>{site.domain}</span>
-                      {site.tag && (
-                        <span class="text-neutral-500">{site.tag}</span>
-                      )}
-                    </p>
-                  </div>
-                  <img
-                    src={arrowUpRight.src}
-                    alt=""
-                    class="mt-1 h-3 w-3 ml-auto flex-shrink-0 opacity-0 group-hover:opacity-60 transition-opacity duration-150"
-                    aria-hidden="true"
-                  />
-                </div>
-                <p class="mt-3 ml-7 text-sm text-neutral-500 leading-relaxed flex-1">
-                  {site.description}
-                </p>
-              </div>
-            </a>
-          ))
-        }
-      </div>
-
-      <!-- Additional sites — compact format -->
-      <div class="mt-5 grid gap-5 md:grid-cols-3">
-        {
-          moreSites.map((site) => (
-            <a
-              href={site.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="group flex items-start gap-2 rounded-xl border border-neutral-400/60 bg-white p-4 transition-all duration-200 hover:border-neutral-400/90 hover:-translate-y-0.5"
-            >
-              <img
-                src={site.favicon.src}
-                alt=""
-                class="mt-1.5 h-5 w-5 rounded flex-shrink-0"
-                loading="lazy"
-                decoding="async"
-              />
-              <div class="min-w-0 flex-1">
-                <div class="flex items-start gap-2">
-                  <h3
-                    class={
-                      site.nameClass ??
-                      "min-w-0 break-words text-[1.0625rem] font-semibold leading-5 text-neutral-900 transition-colors duration-150 group-hover:text-neutral-700"
-                    }
-                  >
-                    {site.name}
-                  </h3>
-                  <img
-                    src={arrowUpRight.src}
-                    alt=""
-                    class="mt-1 h-3 w-3 ml-auto flex-shrink-0 opacity-0 group-hover:opacity-60 transition-opacity duration-150"
-                    aria-hidden="true"
-                  />
-                </div>
-                <p class="mt-0 flex flex-wrap items-baseline gap-x-1.5 text-[0.8125rem] text-neutral-600">
-                  <span set:html={site.domain} />
-                  <span class="text-neutral-500">{site.tag}</span>
-                </p>
-                <p class="mt-3 text-sm text-neutral-500 leading-relaxed">
-                  {site.description}
-                </p>
-              </div>
-            </a>
-          ))
-        }
-      </div>
-    </section>
+    </footer>
   </div>
-
-  <footer
-    class="mt-auto pt-8 pb-4 text-xs text-neutral-500 text-left px-4 sm:px-0"
-  >
-    © {currentYear} Peter Salmon
-  </footer>
 </Base>
