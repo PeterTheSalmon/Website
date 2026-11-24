@@ -551,6 +551,7 @@ main > .section:last-child {
 }
 
 .projects-feature .project-media {
+  --line-inset: max(var(--pad-x), (100% - 820px) / 2);
   aspect-ratio: 12 / 5;
   padding-top: clamp(1.25rem, 3.4vw, 2.75rem);
 }
@@ -578,10 +579,13 @@ main > .section:last-child {
 }
 
 .project-media {
+  --pad-x: clamp(1rem, 2.2vw, 1.5rem);
+  --line-inset: var(--pad-x);
+  position: relative;
   display: block;
   overflow: hidden;
   aspect-ratio: 7 / 4;
-  padding: clamp(1rem, 2.2vw, 1.5rem) clamp(1rem, 2.2vw, 1.5rem) 0;
+  padding: var(--pad-x) var(--pad-x) 0;
   border-radius: var(--radius);
   background: var(--tint);
   transition: filter 0.3s;
@@ -595,6 +599,19 @@ main > .section:last-child {
   box-shadow: 0 10px 26px -12px var(--tint-shadow);
   transform: translateY(8px);
   transition: transform 0.5s var(--ease);
+}
+
+/* A hairline where the screenshot meets the card's bottom edge, so a white
+   page (Polity) doesn't melt into the site background. Spans the screenshot only. */
+.project-media::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  right: var(--line-inset);
+  bottom: 0;
+  left: var(--line-inset);
+  height: 1px;
+  background: var(--tint-line);
 }
 
 .project:hover .project-media {
@@ -647,18 +664,21 @@ main > .section:last-child {
 }
 
 .project--urbora {
+  --tint-line: rgb(54 98 76 / 22%);
   --tint: linear-gradient(140deg, #dcebe1 0%, #d8e8ec 100%);
   --tint-shadow: rgb(54 98 76 / 45%);
   --accent-ink: #24563b;
 }
 
 .project--polity {
+  --tint-line: rgb(150 76 26 / 22%);
   --tint: linear-gradient(140deg, #f8e6d2 0%, #efdccb 100%);
   --tint-shadow: rgb(150 76 26 / 45%);
   --accent-ink: #a64f1a;
 }
 
 .project--munify {
+  --tint-line: rgb(90 70 130 / 22%);
   --tint: linear-gradient(140deg, #dde6f1 0%, #e9dff1 100%);
   --tint-shadow: rgb(90 70 130 / 45%);
   --accent-ink: #6a4d8c;
@@ -786,7 +806,7 @@ main > .section:last-child {
 }
 
 .feature .project-media {
-  padding: clamp(0.9rem, 1.8vw, 1.25rem) clamp(0.9rem, 1.8vw, 1.25rem) 0;
+  --pad-x: clamp(0.9rem, 1.8vw, 1.25rem);
 }
 
 .feature-title {
