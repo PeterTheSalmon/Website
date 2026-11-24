@@ -21,9 +21,10 @@ from shapely.affinity import affine_transform
 from shapely.ops import unary_union
 
 
-ZOOM = 14
-LEFT, TOP, RIGHT = 2575.88, 5665.60, 2577.78
-WIDTH, HEIGHT = 1440, 1024
+# Frame the city from Victoria Harbour to the Oak Bay shoreline.
+ZOOM = 13
+LEFT, TOP, RIGHT = 1287.7, 2832.16, 1290.75
+WIDTH, HEIGHT = 1440, 890
 SCALE = WIDTH / (RIGHT - LEFT)
 BOTTOM = TOP + HEIGHT / SCALE
 OUTPUT = Path(__file__).resolve().parents[1] / "src/assets/atlas/victoria-harbour.webp"
@@ -51,7 +52,6 @@ def tile_features():
                     "park",
                     "landcover",
                     "landuse",
-                    "building",
                     "transportation",
                 }:
                     continue
@@ -97,61 +97,41 @@ def main():
     land, water = "#e9e9df", "#749485"
     image = Image.new("RGB", (WIDTH, HEIGHT), land)
     draw = ImageDraw.Draw(image)
-    layers = {
-        name: [] for name in ("green", "water", "building", "minor", "major", "pier")
-    }
+    layers = {name: [] for name in ("green", "water", "arterial", "major")}
     for layer, properties, geometry in tile_features():
         kind = properties.get("class")
         if layer == "water":
             layers["water"].append(geometry)
-        if layer == "building":
-            layers["building"].append(geometry)
         if (
             layer == "park"
             or layer == "landcover"
             and kind in {"wood", "grass"}
             or layer == "landuse"
             and kind in {"recreation_ground", "cemetery"}
-        ):
+        ) and geometry.area > 350:
             layers["green"].append(geometry)
         if layer == "transportation":
-            if kind in {"motorway", "trunk", "primary", "secondary", "tertiary"}:
+            if kind in {"motorway", "trunk", "primary"}:
                 layers["major"].append(geometry)
-            elif kind == "minor" and properties.get("subclass") != "service":
-                layers["minor"].append(geometry)
-            elif kind == "pier":
-                layers["pier"].append(geometry)
+            elif kind in {"secondary", "tertiary"}:
+                layers["arterial"].append(geometry)
 
-    for green in layers["green"]:
-        if green.area > 150:
-            polygon(draw, green.simplify(2), "#bacbb1", land)
-    for building in layers["building"]:
-        point = building.representative_point()
-        accent = (
-            building.area > 180
-            and point.x > WIDTH * 0.59
-            and int(point.x + point.y) % 31 == 0
-        )
-        if accent:
-            polygon(draw, building.simplify(1.5), "#da9a67", land)
+    green = unary_union(layers["green"]).simplify(5)
+    polygon(draw, green, "#bccdb6", land)
 
-    shoreline = unary_union(layers["water"]).simplify(2)
+    shoreline = unary_union(layers["water"]).simplify(5)
     polygon(draw, shoreline, water, land)
 
     for name, color, width in [
-        ("minor", "#f8f8f3", 4),
-        ("pier", "#e9e9df", 5),
-        ("major", "#fdfdfb", 8),
+        ("arterial", "#f3f3ed", 4),
+        ("major", "#fcfcf7", 7),
     ]:
         for geometry in layers[name]:
-            geometry = geometry.simplify(1.5)
-            if name == "pier":
-                polygon(draw, geometry, color, water)
-            line(draw, geometry, color, width)
+            line(draw, geometry.simplify(3), color, width)
 
-    # Frame the harbour as an editorial illustration using a rotated, inset crop.
-    image = image.rotate(16, resample=Image.Resampling.BICUBIC, fillcolor=land)
-    image = image.crop((130, 110, WIDTH - 130, HEIGHT - 110))
+    # The slight rotation sets the shore and main corridors on a diagonal.
+    image = image.rotate(8, resample=Image.Resampling.BICUBIC, fillcolor=land)
+    image = image.crop((76, 101, WIDTH - 76, HEIGHT - 101))
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     image.save(OUTPUT, quality=90, method=6)
 
