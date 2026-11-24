@@ -1,0 +1,40 @@
+---
+import { Image } from "astro:assets";
+import Icon from "./Icon.astro";
+import { current } from "../data/projects";
+
+interface Props {
+  headingLevel?: "h2" | "h3";
+}
+const { headingLevel = "h3" } = Astro.props;
+const Heading = headingLevel;
+---
+
+<ul class="projects">
+  {
+    current.map((p, i) => (
+      <li class:list={[i === 0 && "projects-feature"]}>
+        <a class:list={["project", `project--${p.theme}`]} href={p.href}>
+          <span class="project-media">
+            <Image
+              src={p.screenshot!}
+              alt={`The ${p.name} homepage`}
+              widths={[480, 720, 960, 1280]}
+              sizes={i === 0 ? "(max-width: 760px) calc(100vw - 40px), 820px" : "(max-width: 760px) calc(100vw - 40px), (max-width: 1300px) 44vw, 540px"}
+              format="webp"
+              quality={78}
+              loading={i === 0 ? "eager" : "lazy"}
+              decoding="async"
+            />
+          </span>
+          <div class="project-title">
+            <Image class="project-logo" src={p.logo} alt="" width={28} height={28} densities={[1, 2]} />
+            <Heading>{p.name}</Heading>
+            <Icon name="arrow-up-right" size={18} class="project-arrow" />
+          </div>
+          <p>{p.description}</p>
+        </a>
+      </li>
+    ))
+  }
+</ul>

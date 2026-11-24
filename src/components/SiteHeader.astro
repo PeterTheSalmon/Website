@@ -1,0 +1,20 @@
+---
+interface Props {
+  current?: "home" | "work" | "about";
+}
+const { current } = Astro.props;
+---
+
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="wordmark" href="/" aria-current={current === "home" ? "page" : undefined}>Peter Salmon</a>
+    <nav aria-label="Primary">
+      <ul>
+        <li><a class="nav-link" href="/work/" data-label="Work" aria-current={current === "work" ? "page" : undefined}><span>Work</span></a></li>
+        <li><a class="nav-link" href="/about/" data-label="About" aria-current={current === "about" ? "page" : undefined}><span>About</span></a></li>
+        <li><a class="nav-cta" href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>

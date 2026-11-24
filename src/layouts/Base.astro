@@ -1,136 +1,77 @@
 ---
 import "../styles/global.css";
+import "../styles/site.css";
+import { site } from "../data/site";
 
 export interface Props {
-  title?: string;
-  description?: string;
-  canonicalUrl?: string;
-  ogImage?: string;
-  ogImageWidth?: number;
-  ogImageHeight?: number;
+  title: string;
+  description: string;
+  path?: string;
   ogImageAlt?: string;
-  themeColor?: string;
-  pageClass?: string;
-  jsonLd?: Record<string, unknown> | Array<Record<string, unknown>>;
+  noindex?: boolean;
+  jsonLd?: Record<string, unknown>;
 }
 
 const {
-  title = "Peter Salmon",
-  description = "Product and engineering leadership with a focus on high-impact digital experiences.",
-  canonicalUrl,
-  ogImage,
-  ogImageWidth,
-  ogImageHeight,
-  ogImageAlt = title,
-  themeColor = "#fffdfb",
-  pageClass,
+  title,
+  description,
+  path = Astro.url.pathname,
+  ogImageAlt = "Peter Salmon, Victoria, British Columbia",
+  noindex = false,
   jsonLd,
-} = Astro.props as Props;
-const siteName = "Peter Salmon";
-const resolvedCanonical =
-  canonicalUrl ??
-  (() => {
-    try {
-      return Astro.url?.href;
-    } catch {
-      return undefined;
-    }
-  })();
-const twitterCardType = ogImage ? "summary_large_image" : "summary";
+} = Astro.props;
+const origin = Astro.site ?? new URL(site.url);
+const canonical = new URL(path, origin).href;
+const ogImage = new URL("/og-image.png", origin).href;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en-CA">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="theme-color" content={themeColor} />
-    {resolvedCanonical && <link rel="canonical" href={resolvedCanonical} />}
+    <meta name="author" content="Peter Salmon" />
+    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
+    <meta name="theme-color" content="#fdfdfb" />
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_CA" />
+    <meta property="og:site_name" content="Peter Salmon" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:site_name" content={siteName} />
-    {
-      resolvedCanonical && (
-        <meta property="og:url" content={resolvedCanonical} />
-      )
-    }
-    {ogImage && <meta property="og:image" content={ogImage} />}
-    {
-      ogImage && ogImageWidth && (
-        <meta property="og:image:width" content={String(ogImageWidth)} />
-      )
-    }
-    {
-      ogImage && ogImageHeight && (
-        <meta property="og:image:height" content={String(ogImageHeight)} />
-      )
-    }
-    {ogImage && <meta property="og:image:alt" content={ogImageAlt} />}
-    <meta name="twitter:card" content={twitterCardType} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={ogImageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    {ogImage && <meta name="twitter:image" content={ogImage} />}
-    {ogImage && <meta name="twitter:image:alt" content={ogImageAlt} />}
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={ogImageAlt} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link
-      rel="preload"
-      href="/fonts/work-sans-400.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href="/fonts/work-sans-500.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href="/fonts/work-sans-600.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href="/fonts/dm-serif-display-400.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="preload" href="/fonts/dm-serif-display-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/work-sans-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/work-sans-500.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/work-sans-600.woff2" as="font" type="font/woff2" crossorigin />
+    <script is:inline>document.documentElement.classList.add("js");</script>
+    <script type="speculationrules" is:inline>
+      {"prerender": [{"where": {"href_matches": "/*"}, "eagerness": "moderate"}]}
+    </script>
     <slot name="head" />
     {
       jsonLd && (
         <script
-          id="person-jsonld"
           type="application/ld+json"
-          set:html={JSON.stringify(jsonLd, null, 2)
-            .replace(/</g, "\\u003c")
-            .replace(/-->/g, "--\\u003e")}
+          set:html={JSON.stringify(jsonLd).replace(/</g, "\\u003c")}
         />
       )
     }
   </head>
-  <body
-    class:list={[
-      "min-h-screen font-sans bg-[#fffdfb] text-black antialiased flex",
-      pageClass,
-    ]}
-  >
-    {
-      Astro.slots.has("page") ? (
-        <slot name="page" />
-      ) : (
-        <main class="w-full max-w-7xl mx-auto flex-1 flex flex-col px-4 sm:px-6 md:px-8 lg:px-9 xl:px-10 py-12 sm:py-10 lg:py-12">
-          <slot />
-        </main>
-      )
-    }
+  <body>
+    <slot />
   </body>
 </html>

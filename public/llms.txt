@@ -1,0 +1,27 @@
+# Peter Salmon
+
+> Peter Salmon is the CEO of Fernwood Agentic in Victoria, British Columbia, Canada, where he is building Urbora to make land-use research easier. He is also Lead Developer at Polity Cooperative.
+
+## About
+
+- Leads Fernwood Agentic, the company behind Urbora. He started by building the systems that connect municipal records to individual properties.
+- Previously worked with historical land records at the Land Title and Survey Authority of British Columbia.
+- Built Munify, which publishes clear, sourced briefings from city council meetings.
+- Lead Developer at Polity Cooperative, which builds tools for public engagement and group decision-making.
+
+## Projects
+
+- [Urbora](https://urbora.ai/): The connected platform for land use intelligence. Ask Urbora anything about a site; it answers in plain language from the city's own documents, with every source cited. Now in Vancouver and Victoria.
+- [Polity](https://polity.coop/): Tools for public engagement and group decision-making.
+- [Munify](https://munify.ca/): Clear, sourced briefings from city council meetings.
+- [Earlier work](https://petersalmon.dev/work/#earlier): Earlier projects including Capital Reasoning, an AI startup in Victoria, plus websites and apps such as Changemakers Library, AceGuitar and ACIS Laboratories.
+
+## Pages
+
+- [About](https://petersalmon.dev/about/): Background and current roles.
+- [Work](https://petersalmon.dev/work/): Current projects and earlier websites and apps.
+
+## Contact
+
+- Email: peter@petersalmon.dev
+- LinkedIn: https://www.linkedin.com/in/peterthesalmon/

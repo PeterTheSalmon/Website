@@ -1,0 +1,102 @@
+---
+import Base from "../layouts/Base.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import Icon from "../components/Icon.astro";
+import ProjectFeature from "../components/ProjectFeature.astro";
+import ProjectRow from "../components/ProjectRow.astro";
+import { current, earlier, older } from "../data/projects";
+import { site } from "../data/site";
+
+const title = "Work · Peter Salmon";
+const description =
+  "Projects by Peter Salmon: Urbora, Polity and Munify, plus earlier work including Capital Reasoning, an AI startup, and sites for a UVic course, a research lab and others.";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": `${site.url}/work/#page`,
+  url: `${site.url}/work/`,
+  name: title,
+  description,
+  isPartOf: { "@id": `${site.url}/#website` },
+  author: { "@id": `${site.url}/#person` },
+  mainEntity: {
+    "@type": "ItemList",
+    itemListElement: [...current, ...earlier, ...older].map((p, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: { "@type": "CreativeWork", name: p.name, url: p.href, description: p.description },
+    })),
+  },
+};
+---
+
+<Base title={title} description={description} path="/work/" jsonLd={jsonLd}>
+  <SiteHeader current="work" />
+
+  <main id="main" tabindex="-1">
+    <section class="wrap page-intro" aria-labelledby="work-title">
+      <h1 class="page-title" id="work-title">Work</h1>
+      <ul class="features">
+        {current.map((p, i) => <ProjectFeature project={p} eager={i === 0} />)}
+      </ul>
+    </section>
+
+    <section class="section" id="earlier" aria-labelledby="earlier-title">
+      <div class="wrap">
+        <h2 class="h-section" id="earlier-title">Earlier</h2>
+        <ul class="rows">
+          {earlier.map((p) => <ProjectRow project={p} />)}
+        </ul>
+        <div class="reveal" id="earlier-more" data-open="false">
+          <div class="reveal-inner">
+            <ul class="rows rows--more">
+              {older.map((p) => <ProjectRow project={p} />)}
+            </ul>
+          </div>
+        </div>
+        <div class="section-foot">
+          <button class="btn btn-ghost show-more" type="button" aria-expanded="false" aria-controls="earlier-more">
+            <span data-closed>Show more</span><span data-opened>Show less</span>
+            <Icon name="chevron-down" size={17} />
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <SiteFooter />
+</Base>
+
+<script>
+  const button = document.querySelector<HTMLButtonElement>(".show-more");
+  const panel = document.getElementById("earlier-more");
+
+  // While the list closes, scroll in step with it so the button stays under the
+  // pointer. Otherwise, near the bottom of the page, the browser clamps the
+  // scroll position partway through and the footer lurches.
+  let frame = 0;
+  function holdInPlace(el: HTMLElement, ms: number) {
+    cancelAnimationFrame(frame);
+    const start = el.getBoundingClientRect().top;
+    const until = performance.now() + ms;
+    const step = (now: number) => {
+      const drift = el.getBoundingClientRect().top - start;
+      if (Math.abs(drift) >= 0.5) window.scrollBy({ top: drift, behavior: "instant" });
+      if (now < until) frame = requestAnimationFrame(step);
+    };
+    frame = requestAnimationFrame(step);
+  }
+
+  if (button && panel) {
+    panel.inert = true;
+    button.addEventListener("click", () => {
+      const open = button.getAttribute("aria-expanded") !== "true";
+      if (!open) holdInPlace(button, 650);
+      button.setAttribute("aria-expanded", String(open));
+      panel.dataset.open = String(open);
+      panel.inert = !open;
+    });
+  }
+</script>

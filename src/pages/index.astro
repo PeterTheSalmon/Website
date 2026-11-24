@@ -1,239 +1,117 @@
 ---
 import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
-import arrowUpRight from "../assets/icons/arrow-up-right.svg";
-import headshot from "../assets/headshot.jpeg";
-import harbourMap from "../assets/atlas/victoria-harbour.webp";
-import parcelStudy from "../assets/atlas/parcel-study.webp";
-import "../styles/atlas.css";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import ProjectCards from "../components/ProjectCards.astro";
+import Icon from "../components/Icon.astro";
+import harbourMap from "../assets/atlas/victoria-harbour.svg";
+import portrait from "../assets/portrait.jpg";
+import { site } from "../data/site";
 
-const email = "mailto:peter@petersalmon.dev";
-const linkedin = "https://www.linkedin.com/in/peterthesalmon/";
-const urbora = "https://urbora.ai/";
-const pageTitle = "Peter Salmon";
-const pageDescription =
-  "Peter Salmon builds software for land-use research and civic decision-making in Victoria, British Columbia.";
-const origin = Astro.site ?? Astro.url.origin;
-const canonicalUrl = new URL("/", origin).href;
-const ogImage = new URL("/og-image.png", origin).href;
+const title = "Peter Salmon · Building Urbora in Victoria, BC";
+const description =
+  "Peter Salmon leads Fernwood Agentic in Victoria, British Columbia, where he is building Urbora to make land-use research easier. He also works on Polity and Munify.";
+const origin = site.url;
 
-const structuredData = {
+const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "Person",
-  name: pageTitle,
-  description: pageDescription,
-  jobTitle: "CEO",
-  url: canonicalUrl,
-  image: new URL(headshot.src, origin).href,
-  email,
-  telephone: "+1-778-676-8643",
-  sameAs: ["https://capitalreasoning.com", "https://aceguitar.app", linkedin],
-  worksFor: {
-    "@type": "Organization",
-    name: "Fernwood Agentic",
-    url: "https://urbora.ai/about",
-  },
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${origin}/#website`,
+      url: `${origin}/`,
+      name: "Peter Salmon",
+      inLanguage: "en-CA",
+      publisher: { "@id": `${origin}/#person` },
+    },
+    {
+      "@type": "Person",
+      "@id": `${origin}/#person`,
+      name: "Peter Salmon",
+      url: `${origin}/`,
+      image: new URL(portrait.src, origin).href,
+      jobTitle: "CEO, Fernwood Agentic",
+      description,
+      email: `mailto:${site.email}`,
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Victoria",
+        addressRegion: "BC",
+        addressCountry: "CA",
+      },
+      worksFor: [
+        { "@type": "Organization", name: "Fernwood Agentic", url: site.fernwood },
+        { "@type": "Organization", name: "Polity Cooperative", url: site.polity },
+      ],
+      knowsAbout: [
+        "Land use",
+        "Zoning",
+        "Municipal records",
+        "Software development",
+        "Artificial intelligence",
+        "Product design",
+        "Public engagement",
+      ],
+      sameAs: [site.linkedin],
+    },
+    {
+      "@type": "SoftwareApplication",
+      name: "Urbora",
+      url: site.urbora,
+      applicationCategory: "BusinessApplication",
+      operatingSystem: "Web",
+      description:
+        "The connected platform for land use intelligence. Ask Urbora anything about a site and it answers in plain language from the city's own documents, with every source cited.",
+      publisher: { "@type": "Organization", name: "Fernwood Agentic", url: site.fernwood },
+    },
+  ],
 };
-
-const otherWork = [
-  {
-    name: "Polity",
-    href: "https://polity.coop/",
-    description: "Tools for public engagement and group decisions.",
-  },
-  {
-    name: "Munify",
-    href: "https://munify.ca",
-    description:
-      "Victoria council briefings with links to the original records.",
-  },
-];
-
-const earlierWork = [
-  { name: "Changemakers Library", href: "https://changemakerslibrary.org" },
-  { name: "ACIS Laboratories", href: "https://acislabs.ca/" },
-  { name: "AceGuitar", href: "https://aceguitar.app" },
-  { name: "Capital Reasoning", href: "https://capitalreasoning.com" },
-  { name: "Kelowna Boat Charters", href: "https://kelownaboatcharters.ca" },
-  {
-    name: "Community Assembly Network",
-    href: "https://communityassemblynetwork.ca",
-  },
-  {
-    name: "Survival Research Institute of Canada",
-    href: "https://survivalresearch.ca",
-  },
-  { name: "BC Green Caucus", href: "https://bcgreencaucus.ca" },
-];
 ---
 
-<Base
-  title={pageTitle}
-  description={pageDescription}
-  canonicalUrl={canonicalUrl}
-  ogImage={ogImage}
-  ogImageWidth={1200}
-  ogImageHeight={630}
-  ogImageAlt="Peter Salmon — Multidisciplinary technologist"
-  themeColor="#fdfdfc"
-  pageClass="atlas-page"
-  jsonLd={structuredData}
->
-  <div class="atlas" slot="page">
-    <a class="skip-link" href="#main-content">Skip to content</a>
-    <header class="site-header">
-      <nav aria-label="Main navigation">
-        <a href="#projects">Work</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </header>
+<Base title={title} description={description} path="/" jsonLd={jsonLd}>
+  <SiteHeader current="home" />
 
-    <main id="main-content" tabindex="-1">
-      <section class="hero" aria-labelledby="page-title">
+  <main id="main" tabindex="-1">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="wrap hero-inner">
         <div class="hero-copy">
-          <h1 id="page-title">Peter Salmon</h1>
-          <p class="home-base">Victoria, British Columbia</p>
-          <p class="intro">
-            I lead Fernwood Agentic, where we’re building Urbora to make
-            land-use research easier.
-          </p>
-          <a class="text-link" href={urbora}
-            >Explore Urbora <img
-              src={arrowUpRight.src}
-              width="16"
-              height="16"
-              alt=""
-            /></a
-          >
-        </div>
-
-        <div class="harbour" aria-hidden="true">
           <Image
-            src={harbourMap}
-            alt=""
-            widths={[640, 960, 1288]}
-            sizes="(max-width: 760px) 100vw, (max-width: 1300px) 78vw, 1000px"
+            class="portrait"
+            src={portrait}
+            alt="Peter Salmon"
+            widths={[184, 368, 552]}
+            sizes="(max-width: 760px) 136px, 184px"
+            width={184}
+            height={184}
             format="webp"
-            quality={88}
+            quality={82}
             loading="eager"
-            fetchpriority="high"
           />
-        </div>
-      </section>
-
-      <section class="featured" id="projects" aria-labelledby="urbora-title">
-        <div class="feature-heading">
-          <h2 id="urbora-title">Urbora</h2>
-          <p>Find out what you can build on a property.</p>
-        </div>
-
-        <figure class="parcel-figure">
-          <div class="parcel-grid">
-            <Image
-              src={parcelStudy}
-              alt="A single lot highlighted on an illustrative neighbourhood map."
-              widths={[600, 900, 1200]}
-              sizes="(max-width: 440px) calc(100vw - 32px), (max-width: 760px) calc(100vw - 40px), (max-width: 1260px) 55vw, 705px"
-              format="webp"
-              quality={88}
-              loading="lazy"
-              decoding="async"
-            />
-            <div class="source-panel">
-              <h3>From parcel to source</h3>
-              <p>
-                Ask about a lot in Vancouver or Victoria and read the bylaws,
-                plans, and past decisions behind Urbora’s answer.
-              </p>
-              <a class="text-link" href={urbora}>
-                Visit Urbora
-                <img src={arrowUpRight.src} width="16" height="16" alt="" />
-              </a>
-            </div>
-          </div>
-          <figcaption>Conceptual illustration</figcaption>
-        </figure>
-      </section>
-
-      <section class="other-work" aria-labelledby="other-title">
-        <h2 id="other-title">Other work</h2>
-        <div class="project-grid">
-          {
-            otherWork.map(({ name, href, description }) => (
-              <article>
-                <h3>
-                  <a href={href}>
-                    {name}{" "}
-                    <img src={arrowUpRight.src} width="20" height="20" alt="" />
-                  </a>
-                </h3>
-                <p>{description}</p>
-              </article>
-            ))
-          }
-        </div>
-      </section>
-
-      <section
-        class="earlier-work"
-        id="website-portfolio"
-        aria-labelledby="earlier-title"
-      >
-        <h2 id="earlier-title">Earlier work</h2>
-        <ul>
-          {
-            earlierWork.map(({ name, href }) => (
-              <li>
-                <a href={href}>{name}</a>
-              </li>
-            ))
-          }
-        </ul>
-      </section>
-
-      <section class="about" id="about" aria-labelledby="about-title">
-        <Image
-          src={headshot}
-          alt=""
-          width={144}
-          height={144}
-          format="webp"
-          loading="lazy"
-          decoding="async"
-        />
-        <div>
-          <h2 id="about-title">About</h2>
-          <p id="services">
-            I build software and have worked on political campaigns and public
-            engagement.
+          <h1 id="hero-title">Peter Salmon</h1>
+          <p class="hero-place">{site.location}</p>
+          <p class="hero-intro">
+            I lead <a class="text-link" href={site.fernwood}>Fernwood Agentic</a>, where we’re building
+            <a class="text-link" href={site.urbora}>Urbora</a> to make land-use research easier.
           </p>
-          <a href="/peter-salmon-resume.pdf"
-            >Résumé <img
-              src={arrowUpRight.src}
-              width="14"
-              height="14"
-              alt=""
-            /></a
-          >
         </div>
-      </section>
-    </main>
+      </div>
+      <div class="hero-map" aria-hidden="true">
+        <img src={harbourMap.src} width="1800" height="1040" alt="" decoding="async" fetchpriority="high" />
+      </div>
+    </section>
 
-    <footer id="contact">
-      <address>
-        <a href={email}>Email</a>
-        <a href={linkedin}>LinkedIn</a>
-        <a href="tel:+17786768643">Phone</a>
-      </address>
-      <small>© {new Date().getFullYear()} Peter Salmon</small>
-      <p class="map-credits">
-        Map data · <a href="https://openfreemap.org/">OpenFreeMap</a> · <a
-          href="https://openmaptiles.org/">© OpenMapTiles</a
-        > · <a href="https://www.openstreetmap.org/copyright"
-          >© OpenStreetMap contributors</a
-        >
-      </p>
-    </footer>
-  </div>
+    <section class="section" id="work" aria-labelledby="work-title">
+      <div class="wrap">
+        <h2 class="h-section h-section--lg" id="work-title">My work</h2>
+        <ProjectCards />
+        <div class="section-foot">
+          <a class="btn btn-ghost" href="/work/#earlier">Earlier work <Icon name="arrow-right" size={17} /></a>
+          <a class="btn btn-ghost" href="/about/">About me <Icon name="arrow-right" size={17} /></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <SiteFooter />
 </Base>

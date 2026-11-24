@@ -1,0 +1,26 @@
+---
+import { Image } from "astro:assets";
+import Icon from "./Icon.astro";
+import type { Project } from "../data/projects";
+
+interface Props {
+  project: Project;
+}
+const { project: p } = Astro.props;
+---
+
+<li>
+  <a class="row-link" href={p.href}>
+    <Image class="row-logo" src={p.logo} alt="" width={44} height={44} densities={[1, 2]} />
+    <div>
+      <h3>
+        {p.name}
+        {p.team && <span class="tag">Team project</span>}
+      </h3>
+      <p>{p.description}</p>
+    </div>
+    <span class="row-meta">
+      {p.domain} <Icon name="arrow-up-right" size={15} />
+    </span>
+  </a>
+</li>

@@ -1,0 +1,36 @@
+---
+import { Image } from "astro:assets";
+import Icon from "./Icon.astro";
+import type { Project } from "../data/projects";
+
+interface Props {
+  project: Project;
+  eager?: boolean;
+}
+const { project: p, eager = false } = Astro.props;
+---
+
+<li>
+  <a class:list={["feature", "project", `project--${p.theme}`]} href={p.href}>
+    <span class="project-media">
+      <Image
+        src={p.screenshot!}
+        alt={`The ${p.name} homepage`}
+        widths={[400, 640, 820]}
+        sizes="(max-width: 600px) calc(100vw - 40px), 400px"
+        format="webp"
+        quality={78}
+        loading={eager ? "eager" : "lazy"}
+        decoding="async"
+      />
+    </span>
+    <div class="feature-body">
+      <div class="feature-title">
+        <Image class="project-logo" src={p.logo} alt="" width={28} height={28} densities={[1, 2]} />
+        <h2>{p.name}</h2>
+      </div>
+      <p>{p.description}</p>
+      <span class="row-meta">{p.domain} <Icon name="arrow-up-right" size={15} /></span>
+    </div>
+  </a>
+</li>
