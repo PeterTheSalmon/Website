@@ -10,7 +10,7 @@ const { project: p } = Astro.props;
 ---
 
 <li>
-  <a class="row-link" href={p.href}>
+  <a class="row-link" href={p.href} target="_blank" rel="noopener">
     <Image class="row-logo" src={p.logo} alt="" width={44} height={44} densities={[1, 2]} />
     <div>
       <h3>

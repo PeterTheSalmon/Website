@@ -14,7 +14,7 @@ const Heading = headingLevel;
   {
     current.map((p, i) => (
       <li class:list={[i === 0 && "projects-feature"]}>
-        <a class:list={["project", `project--${p.theme}`]} href={p.href}>
+        <a class:list={["project", `project--${p.theme}`]} href={p.href} target="_blank" rel="noopener">
           <span class="project-media">
             <Image
               src={p.screenshot!}

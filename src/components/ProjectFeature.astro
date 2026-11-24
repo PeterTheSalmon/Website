@@ -11,7 +11,7 @@ const { project: p, eager = false } = Astro.props;
 ---
 
 <li>
-  <a class:list={["feature", "project", `project--${p.theme}`]} href={p.href}>
+  <a class:list={["feature", "project", `project--${p.theme}`]} href={p.href} target="_blank" rel="noopener">
     <span class="project-media">
       <Image
         src={p.screenshot!}
